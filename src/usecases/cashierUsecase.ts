@@ -25,6 +25,6 @@ export class CashierUsecase {
     if (!valid) throw new Error("Invalid email or password");
 
     const token = generateToken({ id: cashier.id, email: cashier.email });
-    return { token, cashier };
+    return { cashier, token };
   }
 }

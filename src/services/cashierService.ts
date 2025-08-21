@@ -9,7 +9,7 @@ export class CashierService {
     photoProfile?: string | null;
   }) {
     const hashedPassword = await bcrypt.hash(data.password, 10);
-    return prisma.cashier.create({
+    return prisma.user.create({
       data: {
         email: data.email,
         name: data.name || '',
@@ -20,6 +20,6 @@ export class CashierService {
   }
 
   static async findByEmail(email: string) {
-    return prisma.cashier.findUnique({ where: { email } });
+    return prisma.user.findUnique({ where: { email } });
   }
 }
