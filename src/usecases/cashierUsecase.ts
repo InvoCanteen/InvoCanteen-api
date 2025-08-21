@@ -8,7 +8,7 @@ export class CashierUsecase {
     email: string;
     name?: string;
     password: string;
-    photoProfile?: string;
+    photoProfile?: string | null;
   }) {
     const existing = await CashierService.findByEmail(data.email);
     if (existing) throw new Error("Email already registered");

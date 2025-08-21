@@ -6,15 +6,15 @@ export class CashierService {
     email: string;
     name?: string;
     password: string;
-    photoProfile?: string;
+    photoProfile?: string | null;
   }) {
     const hashedPassword = await bcrypt.hash(data.password, 10);
     return prisma.cashier.create({
       data: {
         email: data.email,
-        name: data.name,
+        name: data.name || '',
         password: hashedPassword,
-        photoProfile: data.photoProfile,
+        photoProfile: data.photoProfile || null,
       },
     });
   }

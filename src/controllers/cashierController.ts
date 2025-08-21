@@ -1,8 +1,5 @@
 import { Request, Response } from "express";
-import {
-  registerCashierSchema,
-  loginCashierSchema,
-} from "../validation/cashierValidation";
+import { registerCashierSchema, loginCashierSchema } from "../validation/cashierValidation";
 import { CashierUsecase } from "../usecases/cashierUsecase";
 
 export class CashierController {
@@ -10,9 +7,7 @@ export class CashierController {
     try {
       const { error, value } = registerCashierSchema.validate(req.body);
       if (error) {
-        return res
-          .status(400)
-          .json({ error: error.details?.[0]?.message || "Validation error" });
+        return res.status(400).json({ error: error.details?.[0]?.message || "Validation error" });
       }
 
       const cashier = await CashierUsecase.register(value);
