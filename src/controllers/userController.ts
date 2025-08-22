@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import {
   registerCashierSchema,
   loginCashierSchema,
-} from "../validation/cashierValidation";
-import { CashierUsecase } from "../usecases/cashierUsecase";
+} from "../validation/userValidation";
+import { CashierUsecase } from "../usecases/userUsecase";
 
 export class CashierController {
   static async register(req: Request, res: Response) {

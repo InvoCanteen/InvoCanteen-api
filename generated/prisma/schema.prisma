@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -18,21 +19,14 @@ enum PayStatus {
   PAID
 }
 
-enum UserRole {
-  ADMIN
-  CASHIER
-}
-
 model User {
-  id           Int      @id @default(autoincrement())
-  email        String   @unique
+  id           Int     @id @default(autoincrement())
+  email        String  @unique
   name         String
   password     String
   photoProfile String?
-  role         UserRole @default(CASHIER)
-
-  carts  Cart[]
-  orders Order[]
+  carts        Cart[]
+  orders       Order[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -64,9 +58,9 @@ model Product {
 }
 
 model Cart {
-  id     Int   @id @default(autoincrement())
-  userId Int?
-  user   User? @relation(fields: [userId], references: [id])
+  id        Int   @id @default(autoincrement())
+  cashierId Int?
+  cashier   User? @relation(fields: [cashierId], references: [id])
 
   items    CartItem[]
   subtotal Decimal    @default(0) @db.Decimal(10, 2)
@@ -79,7 +73,7 @@ model Cart {
 
   orders Order[]
 
-  @@index([userId])
+  @@index([cashierId])
   @@index([status])
 }
 
@@ -103,8 +97,8 @@ model Order {
   sourceCartId Int?
   sourceCart   Cart? @relation(fields: [sourceCartId], references: [id], onDelete: SetNull)
 
-  userId Int?
-  user   User? @relation(fields: [userId], references: [id])
+  cashierId Int?
+  cashier   User? @relation(fields: [cashierId], references: [id])
 
   items    OrderItem[]
   subtotal Decimal     @default(0) @db.Decimal(10, 2)
@@ -119,7 +113,7 @@ model Order {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([userId])
+  @@index([cashierId])
   @@index([payStatus])
   @@index([createdAt])
   @@map("orders")

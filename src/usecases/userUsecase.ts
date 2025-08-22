@@ -1,6 +1,5 @@
-// src/usecases/cashierUsecase.ts
 import bcrypt from "bcrypt";
-import { CashierService } from "../services/cashierService";
+import { CashierService } from "../services/userService";
 import { generateToken } from "../utils/jwt";
 
 export class CashierUsecase {
