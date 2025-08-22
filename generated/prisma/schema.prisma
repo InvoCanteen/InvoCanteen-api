@@ -19,14 +19,21 @@ enum PayStatus {
   PAID
 }
 
+enum UserRole {
+  ADMIN
+  CASHIER
+}
+
 model User {
-  id           Int     @id @default(autoincrement())
-  email        String  @unique
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
   name         String
   password     String
   photoProfile String?
-  carts        Cart[]
-  orders       Order[]
+  role         UserRole @default(CASHIER)
+
+  carts  Cart[]
+  orders Order[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -58,9 +65,9 @@ model Product {
 }
 
 model Cart {
-  id        Int   @id @default(autoincrement())
-  cashierId Int?
-  cashier   User? @relation(fields: [cashierId], references: [id])
+  id     Int   @id @default(autoincrement())
+  userId Int?
+  user   User? @relation(fields: [userId], references: [id])
 
   items    CartItem[]
   subtotal Decimal    @default(0) @db.Decimal(10, 2)
@@ -73,7 +80,7 @@ model Cart {
 
   orders Order[]
 
-  @@index([cashierId])
+  @@index([userId])
   @@index([status])
 }
 
@@ -97,8 +104,8 @@ model Order {
   sourceCartId Int?
   sourceCart   Cart? @relation(fields: [sourceCartId], references: [id], onDelete: SetNull)
 
-  cashierId Int?
-  cashier   User? @relation(fields: [cashierId], references: [id])
+  userId Int?
+  user   User? @relation(fields: [userId], references: [id])
 
   items    OrderItem[]
   subtotal Decimal     @default(0) @db.Decimal(10, 2)
@@ -113,7 +120,7 @@ model Order {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([cashierId])
+  @@index([userId])
   @@index([payStatus])
   @@index([createdAt])
   @@map("orders")

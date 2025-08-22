@@ -69,6 +69,14 @@ export const PayStatus: {
 
 export type PayStatus = (typeof PayStatus)[keyof typeof PayStatus]
 
+
+export const UserRole: {
+  ADMIN: 'ADMIN',
+  CASHIER: 'CASHIER'
+};
+
+export type UserRole = (typeof UserRole)[keyof typeof UserRole]
+
 }
 
 export type CartStatus = $Enums.CartStatus
@@ -78,6 +86,10 @@ export const CartStatus: typeof $Enums.CartStatus
 export type PayStatus = $Enums.PayStatus
 
 export const PayStatus: typeof $Enums.PayStatus
+
+export type UserRole = $Enums.UserRole
+
+export const UserRole: typeof $Enums.UserRole
 
 /**
  * ##  Prisma Client ʲˢ
@@ -1639,6 +1651,7 @@ export namespace Prisma {
     name: string | null
     password: string | null
     photoProfile: string | null
+    role: $Enums.UserRole | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1649,6 +1662,7 @@ export namespace Prisma {
     name: string | null
     password: string | null
     photoProfile: string | null
+    role: $Enums.UserRole | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1659,6 +1673,7 @@ export namespace Prisma {
     name: number
     password: number
     photoProfile: number
+    role: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1679,6 +1694,7 @@ export namespace Prisma {
     name?: true
     password?: true
     photoProfile?: true
+    role?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1689,6 +1705,7 @@ export namespace Prisma {
     name?: true
     password?: true
     photoProfile?: true
+    role?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1699,6 +1716,7 @@ export namespace Prisma {
     name?: true
     password?: true
     photoProfile?: true
+    role?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1796,6 +1814,7 @@ export namespace Prisma {
     name: string
     password: string
     photoProfile: string | null
+    role: $Enums.UserRole
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -1825,6 +1844,7 @@ export namespace Prisma {
     name?: boolean
     password?: boolean
     photoProfile?: boolean
+    role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     carts?: boolean | User$cartsArgs<ExtArgs>
@@ -1838,6 +1858,7 @@ export namespace Prisma {
     name?: boolean
     password?: boolean
     photoProfile?: boolean
+    role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -1848,6 +1869,7 @@ export namespace Prisma {
     name?: boolean
     password?: boolean
     photoProfile?: boolean
+    role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -1858,11 +1880,12 @@ export namespace Prisma {
     name?: boolean
     password?: boolean
     photoProfile?: boolean
+    role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "password" | "photoProfile" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "password" | "photoProfile" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     carts?: boolean | User$cartsArgs<ExtArgs>
     orders?: boolean | User$ordersArgs<ExtArgs>
@@ -1883,6 +1906,7 @@ export namespace Prisma {
       name: string
       password: string
       photoProfile: string | null
+      role: $Enums.UserRole
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -2315,6 +2339,7 @@ export namespace Prisma {
     readonly name: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly photoProfile: FieldRef<"User", 'String'>
+    readonly role: FieldRef<"User", 'UserRole'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -5066,7 +5091,7 @@ export namespace Prisma {
 
   export type CartAvgAggregateOutputType = {
     id: number | null
-    cashierId: number | null
+    userId: number | null
     subtotal: Decimal | null
     tax: Decimal | null
     total: Decimal | null
@@ -5074,7 +5099,7 @@ export namespace Prisma {
 
   export type CartSumAggregateOutputType = {
     id: number | null
-    cashierId: number | null
+    userId: number | null
     subtotal: Decimal | null
     tax: Decimal | null
     total: Decimal | null
@@ -5082,7 +5107,7 @@ export namespace Prisma {
 
   export type CartMinAggregateOutputType = {
     id: number | null
-    cashierId: number | null
+    userId: number | null
     subtotal: Decimal | null
     tax: Decimal | null
     total: Decimal | null
@@ -5093,7 +5118,7 @@ export namespace Prisma {
 
   export type CartMaxAggregateOutputType = {
     id: number | null
-    cashierId: number | null
+    userId: number | null
     subtotal: Decimal | null
     tax: Decimal | null
     total: Decimal | null
@@ -5104,7 +5129,7 @@ export namespace Prisma {
 
   export type CartCountAggregateOutputType = {
     id: number
-    cashierId: number
+    userId: number
     subtotal: number
     tax: number
     total: number
@@ -5117,7 +5142,7 @@ export namespace Prisma {
 
   export type CartAvgAggregateInputType = {
     id?: true
-    cashierId?: true
+    userId?: true
     subtotal?: true
     tax?: true
     total?: true
@@ -5125,7 +5150,7 @@ export namespace Prisma {
 
   export type CartSumAggregateInputType = {
     id?: true
-    cashierId?: true
+    userId?: true
     subtotal?: true
     tax?: true
     total?: true
@@ -5133,7 +5158,7 @@ export namespace Prisma {
 
   export type CartMinAggregateInputType = {
     id?: true
-    cashierId?: true
+    userId?: true
     subtotal?: true
     tax?: true
     total?: true
@@ -5144,7 +5169,7 @@ export namespace Prisma {
 
   export type CartMaxAggregateInputType = {
     id?: true
-    cashierId?: true
+    userId?: true
     subtotal?: true
     tax?: true
     total?: true
@@ -5155,7 +5180,7 @@ export namespace Prisma {
 
   export type CartCountAggregateInputType = {
     id?: true
-    cashierId?: true
+    userId?: true
     subtotal?: true
     tax?: true
     total?: true
@@ -5253,7 +5278,7 @@ export namespace Prisma {
 
   export type CartGroupByOutputType = {
     id: number
-    cashierId: number | null
+    userId: number | null
     subtotal: Decimal
     tax: Decimal
     total: Decimal
@@ -5283,14 +5308,14 @@ export namespace Prisma {
 
   export type CartSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    cashierId?: boolean
+    userId?: boolean
     subtotal?: boolean
     tax?: boolean
     total?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    cashier?: boolean | Cart$cashierArgs<ExtArgs>
+    user?: boolean | Cart$userArgs<ExtArgs>
     items?: boolean | Cart$itemsArgs<ExtArgs>
     orders?: boolean | Cart$ordersArgs<ExtArgs>
     _count?: boolean | CartCountOutputTypeDefaultArgs<ExtArgs>
@@ -5298,31 +5323,31 @@ export namespace Prisma {
 
   export type CartSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    cashierId?: boolean
+    userId?: boolean
     subtotal?: boolean
     tax?: boolean
     total?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    cashier?: boolean | Cart$cashierArgs<ExtArgs>
+    user?: boolean | Cart$userArgs<ExtArgs>
   }, ExtArgs["result"]["cart"]>
 
   export type CartSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    cashierId?: boolean
+    userId?: boolean
     subtotal?: boolean
     tax?: boolean
     total?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    cashier?: boolean | Cart$cashierArgs<ExtArgs>
+    user?: boolean | Cart$userArgs<ExtArgs>
   }, ExtArgs["result"]["cart"]>
 
   export type CartSelectScalar = {
     id?: boolean
-    cashierId?: boolean
+    userId?: boolean
     subtotal?: boolean
     tax?: boolean
     total?: boolean
@@ -5331,30 +5356,30 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type CartOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cashierId" | "subtotal" | "tax" | "total" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["cart"]>
+  export type CartOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "subtotal" | "tax" | "total" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["cart"]>
   export type CartInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    cashier?: boolean | Cart$cashierArgs<ExtArgs>
+    user?: boolean | Cart$userArgs<ExtArgs>
     items?: boolean | Cart$itemsArgs<ExtArgs>
     orders?: boolean | Cart$ordersArgs<ExtArgs>
     _count?: boolean | CartCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CartIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    cashier?: boolean | Cart$cashierArgs<ExtArgs>
+    user?: boolean | Cart$userArgs<ExtArgs>
   }
   export type CartIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    cashier?: boolean | Cart$cashierArgs<ExtArgs>
+    user?: boolean | Cart$userArgs<ExtArgs>
   }
 
   export type $CartPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Cart"
     objects: {
-      cashier: Prisma.$UserPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs> | null
       items: Prisma.$CartItemPayload<ExtArgs>[]
       orders: Prisma.$OrderPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      cashierId: number | null
+      userId: number | null
       subtotal: Prisma.Decimal
       tax: Prisma.Decimal
       total: Prisma.Decimal
@@ -5755,7 +5780,7 @@ export namespace Prisma {
    */
   export interface Prisma__CartClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    cashier<T extends Cart$cashierArgs<ExtArgs> = {}>(args?: Subset<T, Cart$cashierArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    user<T extends Cart$userArgs<ExtArgs> = {}>(args?: Subset<T, Cart$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     items<T extends Cart$itemsArgs<ExtArgs> = {}>(args?: Subset<T, Cart$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CartItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     orders<T extends Cart$ordersArgs<ExtArgs> = {}>(args?: Subset<T, Cart$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -5788,7 +5813,7 @@ export namespace Prisma {
    */
   interface CartFieldRefs {
     readonly id: FieldRef<"Cart", 'Int'>
-    readonly cashierId: FieldRef<"Cart", 'Int'>
+    readonly userId: FieldRef<"Cart", 'Int'>
     readonly subtotal: FieldRef<"Cart", 'Decimal'>
     readonly tax: FieldRef<"Cart", 'Decimal'>
     readonly total: FieldRef<"Cart", 'Decimal'>
@@ -6191,9 +6216,9 @@ export namespace Prisma {
   }
 
   /**
-   * Cart.cashier
+   * Cart.user
    */
-  export type Cart$cashierArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Cart$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
@@ -7437,7 +7462,7 @@ export namespace Prisma {
   export type OrderAvgAggregateOutputType = {
     id: number | null
     sourceCartId: number | null
-    cashierId: number | null
+    userId: number | null
     subtotal: Decimal | null
     tax: Decimal | null
     total: Decimal | null
@@ -7446,7 +7471,7 @@ export namespace Prisma {
   export type OrderSumAggregateOutputType = {
     id: number | null
     sourceCartId: number | null
-    cashierId: number | null
+    userId: number | null
     subtotal: Decimal | null
     tax: Decimal | null
     total: Decimal | null
@@ -7455,7 +7480,7 @@ export namespace Prisma {
   export type OrderMinAggregateOutputType = {
     id: number | null
     sourceCartId: number | null
-    cashierId: number | null
+    userId: number | null
     subtotal: Decimal | null
     tax: Decimal | null
     total: Decimal | null
@@ -7469,7 +7494,7 @@ export namespace Prisma {
   export type OrderMaxAggregateOutputType = {
     id: number | null
     sourceCartId: number | null
-    cashierId: number | null
+    userId: number | null
     subtotal: Decimal | null
     tax: Decimal | null
     total: Decimal | null
@@ -7483,7 +7508,7 @@ export namespace Prisma {
   export type OrderCountAggregateOutputType = {
     id: number
     sourceCartId: number
-    cashierId: number
+    userId: number
     subtotal: number
     tax: number
     total: number
@@ -7499,7 +7524,7 @@ export namespace Prisma {
   export type OrderAvgAggregateInputType = {
     id?: true
     sourceCartId?: true
-    cashierId?: true
+    userId?: true
     subtotal?: true
     tax?: true
     total?: true
@@ -7508,7 +7533,7 @@ export namespace Prisma {
   export type OrderSumAggregateInputType = {
     id?: true
     sourceCartId?: true
-    cashierId?: true
+    userId?: true
     subtotal?: true
     tax?: true
     total?: true
@@ -7517,7 +7542,7 @@ export namespace Prisma {
   export type OrderMinAggregateInputType = {
     id?: true
     sourceCartId?: true
-    cashierId?: true
+    userId?: true
     subtotal?: true
     tax?: true
     total?: true
@@ -7531,7 +7556,7 @@ export namespace Prisma {
   export type OrderMaxAggregateInputType = {
     id?: true
     sourceCartId?: true
-    cashierId?: true
+    userId?: true
     subtotal?: true
     tax?: true
     total?: true
@@ -7545,7 +7570,7 @@ export namespace Prisma {
   export type OrderCountAggregateInputType = {
     id?: true
     sourceCartId?: true
-    cashierId?: true
+    userId?: true
     subtotal?: true
     tax?: true
     total?: true
@@ -7646,7 +7671,7 @@ export namespace Prisma {
   export type OrderGroupByOutputType = {
     id: number
     sourceCartId: number | null
-    cashierId: number | null
+    userId: number | null
     subtotal: Decimal
     tax: Decimal
     total: Decimal
@@ -7679,7 +7704,7 @@ export namespace Prisma {
   export type OrderSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     sourceCartId?: boolean
-    cashierId?: boolean
+    userId?: boolean
     subtotal?: boolean
     tax?: boolean
     total?: boolean
@@ -7689,7 +7714,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     sourceCart?: boolean | Order$sourceCartArgs<ExtArgs>
-    cashier?: boolean | Order$cashierArgs<ExtArgs>
+    user?: boolean | Order$userArgs<ExtArgs>
     items?: boolean | Order$itemsArgs<ExtArgs>
     _count?: boolean | OrderCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["order"]>
@@ -7697,7 +7722,7 @@ export namespace Prisma {
   export type OrderSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     sourceCartId?: boolean
-    cashierId?: boolean
+    userId?: boolean
     subtotal?: boolean
     tax?: boolean
     total?: boolean
@@ -7707,13 +7732,13 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     sourceCart?: boolean | Order$sourceCartArgs<ExtArgs>
-    cashier?: boolean | Order$cashierArgs<ExtArgs>
+    user?: boolean | Order$userArgs<ExtArgs>
   }, ExtArgs["result"]["order"]>
 
   export type OrderSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     sourceCartId?: boolean
-    cashierId?: boolean
+    userId?: boolean
     subtotal?: boolean
     tax?: boolean
     total?: boolean
@@ -7723,13 +7748,13 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     sourceCart?: boolean | Order$sourceCartArgs<ExtArgs>
-    cashier?: boolean | Order$cashierArgs<ExtArgs>
+    user?: boolean | Order$userArgs<ExtArgs>
   }, ExtArgs["result"]["order"]>
 
   export type OrderSelectScalar = {
     id?: boolean
     sourceCartId?: boolean
-    cashierId?: boolean
+    userId?: boolean
     subtotal?: boolean
     tax?: boolean
     total?: boolean
@@ -7740,33 +7765,33 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "sourceCartId" | "cashierId" | "subtotal" | "tax" | "total" | "payStatus" | "paidAt" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
+  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "sourceCartId" | "userId" | "subtotal" | "tax" | "total" | "payStatus" | "paidAt" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
   export type OrderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sourceCart?: boolean | Order$sourceCartArgs<ExtArgs>
-    cashier?: boolean | Order$cashierArgs<ExtArgs>
+    user?: boolean | Order$userArgs<ExtArgs>
     items?: boolean | Order$itemsArgs<ExtArgs>
     _count?: boolean | OrderCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OrderIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sourceCart?: boolean | Order$sourceCartArgs<ExtArgs>
-    cashier?: boolean | Order$cashierArgs<ExtArgs>
+    user?: boolean | Order$userArgs<ExtArgs>
   }
   export type OrderIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sourceCart?: boolean | Order$sourceCartArgs<ExtArgs>
-    cashier?: boolean | Order$cashierArgs<ExtArgs>
+    user?: boolean | Order$userArgs<ExtArgs>
   }
 
   export type $OrderPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Order"
     objects: {
       sourceCart: Prisma.$CartPayload<ExtArgs> | null
-      cashier: Prisma.$UserPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs> | null
       items: Prisma.$OrderItemPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       sourceCartId: number | null
-      cashierId: number | null
+      userId: number | null
       subtotal: Prisma.Decimal
       tax: Prisma.Decimal
       total: Prisma.Decimal
@@ -8170,7 +8195,7 @@ export namespace Prisma {
   export interface Prisma__OrderClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     sourceCart<T extends Order$sourceCartArgs<ExtArgs> = {}>(args?: Subset<T, Order$sourceCartArgs<ExtArgs>>): Prisma__CartClient<$Result.GetResult<Prisma.$CartPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    cashier<T extends Order$cashierArgs<ExtArgs> = {}>(args?: Subset<T, Order$cashierArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    user<T extends Order$userArgs<ExtArgs> = {}>(args?: Subset<T, Order$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     items<T extends Order$itemsArgs<ExtArgs> = {}>(args?: Subset<T, Order$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -8203,7 +8228,7 @@ export namespace Prisma {
   interface OrderFieldRefs {
     readonly id: FieldRef<"Order", 'Int'>
     readonly sourceCartId: FieldRef<"Order", 'Int'>
-    readonly cashierId: FieldRef<"Order", 'Int'>
+    readonly userId: FieldRef<"Order", 'Int'>
     readonly subtotal: FieldRef<"Order", 'Decimal'>
     readonly tax: FieldRef<"Order", 'Decimal'>
     readonly total: FieldRef<"Order", 'Decimal'>
@@ -8627,9 +8652,9 @@ export namespace Prisma {
   }
 
   /**
-   * Order.cashier
+   * Order.user
    */
-  export type Order$cashierArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Order$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
@@ -9854,6 +9879,7 @@ export namespace Prisma {
     name: 'name',
     password: 'password',
     photoProfile: 'photoProfile',
+    role: 'role',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -9885,7 +9911,7 @@ export namespace Prisma {
 
   export const CartScalarFieldEnum: {
     id: 'id',
-    cashierId: 'cashierId',
+    userId: 'userId',
     subtotal: 'subtotal',
     tax: 'tax',
     total: 'total',
@@ -9913,7 +9939,7 @@ export namespace Prisma {
   export const OrderScalarFieldEnum: {
     id: 'id',
     sourceCartId: 'sourceCartId',
-    cashierId: 'cashierId',
+    userId: 'userId',
     subtotal: 'subtotal',
     tax: 'tax',
     total: 'total',
@@ -9994,6 +10020,20 @@ export namespace Prisma {
    * Reference to a field of type 'String[]'
    */
   export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'UserRole'
+   */
+  export type EnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole'>
+    
+
+
+  /**
+   * Reference to a field of type 'UserRole[]'
+   */
+  export type ListEnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole[]'>
     
 
 
@@ -10079,6 +10119,7 @@ export namespace Prisma {
     name?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     photoProfile?: StringNullableFilter<"User"> | string | null
+    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     carts?: CartListRelationFilter
@@ -10091,6 +10132,7 @@ export namespace Prisma {
     name?: SortOrder
     password?: SortOrder
     photoProfile?: SortOrderInput | SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     carts?: CartOrderByRelationAggregateInput
@@ -10106,6 +10148,7 @@ export namespace Prisma {
     name?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     photoProfile?: StringNullableFilter<"User"> | string | null
+    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     carts?: CartListRelationFilter
@@ -10118,6 +10161,7 @@ export namespace Prisma {
     name?: SortOrder
     password?: SortOrder
     photoProfile?: SortOrderInput | SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -10136,6 +10180,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
     photoProfile?: StringNullableWithAggregatesFilter<"User"> | string | null
+    role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -10265,28 +10310,28 @@ export namespace Prisma {
     OR?: CartWhereInput[]
     NOT?: CartWhereInput | CartWhereInput[]
     id?: IntFilter<"Cart"> | number
-    cashierId?: IntNullableFilter<"Cart"> | number | null
+    userId?: IntNullableFilter<"Cart"> | number | null
     subtotal?: DecimalFilter<"Cart"> | Decimal | DecimalJsLike | number | string
     tax?: DecimalFilter<"Cart"> | Decimal | DecimalJsLike | number | string
     total?: DecimalFilter<"Cart"> | Decimal | DecimalJsLike | number | string
     status?: EnumCartStatusFilter<"Cart"> | $Enums.CartStatus
     createdAt?: DateTimeFilter<"Cart"> | Date | string
     updatedAt?: DateTimeFilter<"Cart"> | Date | string
-    cashier?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     items?: CartItemListRelationFilter
     orders?: OrderListRelationFilter
   }
 
   export type CartOrderByWithRelationInput = {
     id?: SortOrder
-    cashierId?: SortOrderInput | SortOrder
+    userId?: SortOrderInput | SortOrder
     subtotal?: SortOrder
     tax?: SortOrder
     total?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    cashier?: UserOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
     items?: CartItemOrderByRelationAggregateInput
     orders?: OrderOrderByRelationAggregateInput
   }
@@ -10296,21 +10341,21 @@ export namespace Prisma {
     AND?: CartWhereInput | CartWhereInput[]
     OR?: CartWhereInput[]
     NOT?: CartWhereInput | CartWhereInput[]
-    cashierId?: IntNullableFilter<"Cart"> | number | null
+    userId?: IntNullableFilter<"Cart"> | number | null
     subtotal?: DecimalFilter<"Cart"> | Decimal | DecimalJsLike | number | string
     tax?: DecimalFilter<"Cart"> | Decimal | DecimalJsLike | number | string
     total?: DecimalFilter<"Cart"> | Decimal | DecimalJsLike | number | string
     status?: EnumCartStatusFilter<"Cart"> | $Enums.CartStatus
     createdAt?: DateTimeFilter<"Cart"> | Date | string
     updatedAt?: DateTimeFilter<"Cart"> | Date | string
-    cashier?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     items?: CartItemListRelationFilter
     orders?: OrderListRelationFilter
   }, "id">
 
   export type CartOrderByWithAggregationInput = {
     id?: SortOrder
-    cashierId?: SortOrderInput | SortOrder
+    userId?: SortOrderInput | SortOrder
     subtotal?: SortOrder
     tax?: SortOrder
     total?: SortOrder
@@ -10329,7 +10374,7 @@ export namespace Prisma {
     OR?: CartScalarWhereWithAggregatesInput[]
     NOT?: CartScalarWhereWithAggregatesInput | CartScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Cart"> | number
-    cashierId?: IntNullableWithAggregatesFilter<"Cart"> | number | null
+    userId?: IntNullableWithAggregatesFilter<"Cart"> | number | null
     subtotal?: DecimalWithAggregatesFilter<"Cart"> | Decimal | DecimalJsLike | number | string
     tax?: DecimalWithAggregatesFilter<"Cart"> | Decimal | DecimalJsLike | number | string
     total?: DecimalWithAggregatesFilter<"Cart"> | Decimal | DecimalJsLike | number | string
@@ -10414,7 +10459,7 @@ export namespace Prisma {
     NOT?: OrderWhereInput | OrderWhereInput[]
     id?: IntFilter<"Order"> | number
     sourceCartId?: IntNullableFilter<"Order"> | number | null
-    cashierId?: IntNullableFilter<"Order"> | number | null
+    userId?: IntNullableFilter<"Order"> | number | null
     subtotal?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
     tax?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
     total?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
@@ -10424,14 +10469,14 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
     sourceCart?: XOR<CartNullableScalarRelationFilter, CartWhereInput> | null
-    cashier?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     items?: OrderItemListRelationFilter
   }
 
   export type OrderOrderByWithRelationInput = {
     id?: SortOrder
     sourceCartId?: SortOrderInput | SortOrder
-    cashierId?: SortOrderInput | SortOrder
+    userId?: SortOrderInput | SortOrder
     subtotal?: SortOrder
     tax?: SortOrder
     total?: SortOrder
@@ -10441,7 +10486,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     sourceCart?: CartOrderByWithRelationInput
-    cashier?: UserOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
     items?: OrderItemOrderByRelationAggregateInput
   }
 
@@ -10451,7 +10496,7 @@ export namespace Prisma {
     OR?: OrderWhereInput[]
     NOT?: OrderWhereInput | OrderWhereInput[]
     sourceCartId?: IntNullableFilter<"Order"> | number | null
-    cashierId?: IntNullableFilter<"Order"> | number | null
+    userId?: IntNullableFilter<"Order"> | number | null
     subtotal?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
     tax?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
     total?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
@@ -10461,14 +10506,14 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
     sourceCart?: XOR<CartNullableScalarRelationFilter, CartWhereInput> | null
-    cashier?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     items?: OrderItemListRelationFilter
   }, "id">
 
   export type OrderOrderByWithAggregationInput = {
     id?: SortOrder
     sourceCartId?: SortOrderInput | SortOrder
-    cashierId?: SortOrderInput | SortOrder
+    userId?: SortOrderInput | SortOrder
     subtotal?: SortOrder
     tax?: SortOrder
     total?: SortOrder
@@ -10490,7 +10535,7 @@ export namespace Prisma {
     NOT?: OrderScalarWhereWithAggregatesInput | OrderScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Order"> | number
     sourceCartId?: IntNullableWithAggregatesFilter<"Order"> | number | null
-    cashierId?: IntNullableWithAggregatesFilter<"Order"> | number | null
+    userId?: IntNullableWithAggregatesFilter<"Order"> | number | null
     subtotal?: DecimalWithAggregatesFilter<"Order"> | Decimal | DecimalJsLike | number | string
     tax?: DecimalWithAggregatesFilter<"Order"> | Decimal | DecimalJsLike | number | string
     total?: DecimalWithAggregatesFilter<"Order"> | Decimal | DecimalJsLike | number | string
@@ -10576,10 +10621,11 @@ export namespace Prisma {
     name: string
     password: string
     photoProfile?: string | null
+    role?: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
-    carts?: CartCreateNestedManyWithoutCashierInput
-    orders?: OrderCreateNestedManyWithoutCashierInput
+    carts?: CartCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -10588,10 +10634,11 @@ export namespace Prisma {
     name: string
     password: string
     photoProfile?: string | null
+    role?: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
-    carts?: CartUncheckedCreateNestedManyWithoutCashierInput
-    orders?: OrderUncheckedCreateNestedManyWithoutCashierInput
+    carts?: CartUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -10599,10 +10646,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     photoProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    carts?: CartUpdateManyWithoutCashierNestedInput
-    orders?: OrderUpdateManyWithoutCashierNestedInput
+    carts?: CartUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -10611,10 +10659,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     photoProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    carts?: CartUncheckedUpdateManyWithoutCashierNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutCashierNestedInput
+    carts?: CartUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -10623,6 +10672,7 @@ export namespace Prisma {
     name: string
     password: string
     photoProfile?: string | null
+    role?: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -10632,6 +10682,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     photoProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10642,6 +10693,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     photoProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10770,14 +10822,14 @@ export namespace Prisma {
     status?: $Enums.CartStatus
     createdAt?: Date | string
     updatedAt?: Date | string
-    cashier?: UserCreateNestedOneWithoutCartsInput
+    user?: UserCreateNestedOneWithoutCartsInput
     items?: CartItemCreateNestedManyWithoutCartInput
     orders?: OrderCreateNestedManyWithoutSourceCartInput
   }
 
   export type CartUncheckedCreateInput = {
     id?: number
-    cashierId?: number | null
+    userId?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string
     tax?: Decimal | DecimalJsLike | number | string
     total?: Decimal | DecimalJsLike | number | string
@@ -10795,14 +10847,14 @@ export namespace Prisma {
     status?: EnumCartStatusFieldUpdateOperationsInput | $Enums.CartStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    cashier?: UserUpdateOneWithoutCartsNestedInput
+    user?: UserUpdateOneWithoutCartsNestedInput
     items?: CartItemUpdateManyWithoutCartNestedInput
     orders?: OrderUpdateManyWithoutSourceCartNestedInput
   }
 
   export type CartUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    cashierId?: NullableIntFieldUpdateOperationsInput | number | null
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     tax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -10815,7 +10867,7 @@ export namespace Prisma {
 
   export type CartCreateManyInput = {
     id?: number
-    cashierId?: number | null
+    userId?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string
     tax?: Decimal | DecimalJsLike | number | string
     total?: Decimal | DecimalJsLike | number | string
@@ -10835,7 +10887,7 @@ export namespace Prisma {
 
   export type CartUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    cashierId?: NullableIntFieldUpdateOperationsInput | number | null
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     tax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -10919,14 +10971,14 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     sourceCart?: CartCreateNestedOneWithoutOrdersInput
-    cashier?: UserCreateNestedOneWithoutOrdersInput
+    user?: UserCreateNestedOneWithoutOrdersInput
     items?: OrderItemCreateNestedManyWithoutOrderInput
   }
 
   export type OrderUncheckedCreateInput = {
     id?: number
     sourceCartId?: number | null
-    cashierId?: number | null
+    userId?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string
     tax?: Decimal | DecimalJsLike | number | string
     total?: Decimal | DecimalJsLike | number | string
@@ -10948,14 +11000,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sourceCart?: CartUpdateOneWithoutOrdersNestedInput
-    cashier?: UserUpdateOneWithoutOrdersNestedInput
+    user?: UserUpdateOneWithoutOrdersNestedInput
     items?: OrderItemUpdateManyWithoutOrderNestedInput
   }
 
   export type OrderUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     sourceCartId?: NullableIntFieldUpdateOperationsInput | number | null
-    cashierId?: NullableIntFieldUpdateOperationsInput | number | null
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     tax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -10970,7 +11022,7 @@ export namespace Prisma {
   export type OrderCreateManyInput = {
     id?: number
     sourceCartId?: number | null
-    cashierId?: number | null
+    userId?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string
     tax?: Decimal | DecimalJsLike | number | string
     total?: Decimal | DecimalJsLike | number | string
@@ -10995,7 +11047,7 @@ export namespace Prisma {
   export type OrderUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     sourceCartId?: NullableIntFieldUpdateOperationsInput | number | null
-    cashierId?: NullableIntFieldUpdateOperationsInput | number | null
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     tax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -11112,6 +11164,13 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type EnumUserRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -11154,6 +11213,7 @@ export namespace Prisma {
     name?: SortOrder
     password?: SortOrder
     photoProfile?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11168,6 +11228,7 @@ export namespace Prisma {
     name?: SortOrder
     password?: SortOrder
     photoProfile?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11178,6 +11239,7 @@ export namespace Prisma {
     name?: SortOrder
     password?: SortOrder
     photoProfile?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11236,6 +11298,16 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type EnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserRoleWithAggregatesFilter<$PrismaModel> | $Enums.UserRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserRoleFilter<$PrismaModel>
+    _max?: NestedEnumUserRoleFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -11423,7 +11495,7 @@ export namespace Prisma {
 
   export type CartCountOrderByAggregateInput = {
     id?: SortOrder
-    cashierId?: SortOrder
+    userId?: SortOrder
     subtotal?: SortOrder
     tax?: SortOrder
     total?: SortOrder
@@ -11434,7 +11506,7 @@ export namespace Prisma {
 
   export type CartAvgOrderByAggregateInput = {
     id?: SortOrder
-    cashierId?: SortOrder
+    userId?: SortOrder
     subtotal?: SortOrder
     tax?: SortOrder
     total?: SortOrder
@@ -11442,7 +11514,7 @@ export namespace Prisma {
 
   export type CartMaxOrderByAggregateInput = {
     id?: SortOrder
-    cashierId?: SortOrder
+    userId?: SortOrder
     subtotal?: SortOrder
     tax?: SortOrder
     total?: SortOrder
@@ -11453,7 +11525,7 @@ export namespace Prisma {
 
   export type CartMinOrderByAggregateInput = {
     id?: SortOrder
-    cashierId?: SortOrder
+    userId?: SortOrder
     subtotal?: SortOrder
     tax?: SortOrder
     total?: SortOrder
@@ -11464,7 +11536,7 @@ export namespace Prisma {
 
   export type CartSumOrderByAggregateInput = {
     id?: SortOrder
-    cashierId?: SortOrder
+    userId?: SortOrder
     subtotal?: SortOrder
     tax?: SortOrder
     total?: SortOrder
@@ -11564,7 +11636,7 @@ export namespace Prisma {
   export type OrderCountOrderByAggregateInput = {
     id?: SortOrder
     sourceCartId?: SortOrder
-    cashierId?: SortOrder
+    userId?: SortOrder
     subtotal?: SortOrder
     tax?: SortOrder
     total?: SortOrder
@@ -11578,7 +11650,7 @@ export namespace Prisma {
   export type OrderAvgOrderByAggregateInput = {
     id?: SortOrder
     sourceCartId?: SortOrder
-    cashierId?: SortOrder
+    userId?: SortOrder
     subtotal?: SortOrder
     tax?: SortOrder
     total?: SortOrder
@@ -11587,7 +11659,7 @@ export namespace Prisma {
   export type OrderMaxOrderByAggregateInput = {
     id?: SortOrder
     sourceCartId?: SortOrder
-    cashierId?: SortOrder
+    userId?: SortOrder
     subtotal?: SortOrder
     tax?: SortOrder
     total?: SortOrder
@@ -11601,7 +11673,7 @@ export namespace Prisma {
   export type OrderMinOrderByAggregateInput = {
     id?: SortOrder
     sourceCartId?: SortOrder
-    cashierId?: SortOrder
+    userId?: SortOrder
     subtotal?: SortOrder
     tax?: SortOrder
     total?: SortOrder
@@ -11615,7 +11687,7 @@ export namespace Prisma {
   export type OrderSumOrderByAggregateInput = {
     id?: SortOrder
     sourceCartId?: SortOrder
-    cashierId?: SortOrder
+    userId?: SortOrder
     subtotal?: SortOrder
     tax?: SortOrder
     total?: SortOrder
@@ -11698,31 +11770,31 @@ export namespace Prisma {
     subtotal?: SortOrder
   }
 
-  export type CartCreateNestedManyWithoutCashierInput = {
-    create?: XOR<CartCreateWithoutCashierInput, CartUncheckedCreateWithoutCashierInput> | CartCreateWithoutCashierInput[] | CartUncheckedCreateWithoutCashierInput[]
-    connectOrCreate?: CartCreateOrConnectWithoutCashierInput | CartCreateOrConnectWithoutCashierInput[]
-    createMany?: CartCreateManyCashierInputEnvelope
+  export type CartCreateNestedManyWithoutUserInput = {
+    create?: XOR<CartCreateWithoutUserInput, CartUncheckedCreateWithoutUserInput> | CartCreateWithoutUserInput[] | CartUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CartCreateOrConnectWithoutUserInput | CartCreateOrConnectWithoutUserInput[]
+    createMany?: CartCreateManyUserInputEnvelope
     connect?: CartWhereUniqueInput | CartWhereUniqueInput[]
   }
 
-  export type OrderCreateNestedManyWithoutCashierInput = {
-    create?: XOR<OrderCreateWithoutCashierInput, OrderUncheckedCreateWithoutCashierInput> | OrderCreateWithoutCashierInput[] | OrderUncheckedCreateWithoutCashierInput[]
-    connectOrCreate?: OrderCreateOrConnectWithoutCashierInput | OrderCreateOrConnectWithoutCashierInput[]
-    createMany?: OrderCreateManyCashierInputEnvelope
+  export type OrderCreateNestedManyWithoutUserInput = {
+    create?: XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput> | OrderCreateWithoutUserInput[] | OrderUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutUserInput | OrderCreateOrConnectWithoutUserInput[]
+    createMany?: OrderCreateManyUserInputEnvelope
     connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
   }
 
-  export type CartUncheckedCreateNestedManyWithoutCashierInput = {
-    create?: XOR<CartCreateWithoutCashierInput, CartUncheckedCreateWithoutCashierInput> | CartCreateWithoutCashierInput[] | CartUncheckedCreateWithoutCashierInput[]
-    connectOrCreate?: CartCreateOrConnectWithoutCashierInput | CartCreateOrConnectWithoutCashierInput[]
-    createMany?: CartCreateManyCashierInputEnvelope
+  export type CartUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<CartCreateWithoutUserInput, CartUncheckedCreateWithoutUserInput> | CartCreateWithoutUserInput[] | CartUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CartCreateOrConnectWithoutUserInput | CartCreateOrConnectWithoutUserInput[]
+    createMany?: CartCreateManyUserInputEnvelope
     connect?: CartWhereUniqueInput | CartWhereUniqueInput[]
   }
 
-  export type OrderUncheckedCreateNestedManyWithoutCashierInput = {
-    create?: XOR<OrderCreateWithoutCashierInput, OrderUncheckedCreateWithoutCashierInput> | OrderCreateWithoutCashierInput[] | OrderUncheckedCreateWithoutCashierInput[]
-    connectOrCreate?: OrderCreateOrConnectWithoutCashierInput | OrderCreateOrConnectWithoutCashierInput[]
-    createMany?: OrderCreateManyCashierInputEnvelope
+  export type OrderUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput> | OrderCreateWithoutUserInput[] | OrderUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutUserInput | OrderCreateOrConnectWithoutUserInput[]
+    createMany?: OrderCreateManyUserInputEnvelope
     connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
   }
 
@@ -11734,35 +11806,39 @@ export namespace Prisma {
     set?: string | null
   }
 
+  export type EnumUserRoleFieldUpdateOperationsInput = {
+    set?: $Enums.UserRole
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
 
-  export type CartUpdateManyWithoutCashierNestedInput = {
-    create?: XOR<CartCreateWithoutCashierInput, CartUncheckedCreateWithoutCashierInput> | CartCreateWithoutCashierInput[] | CartUncheckedCreateWithoutCashierInput[]
-    connectOrCreate?: CartCreateOrConnectWithoutCashierInput | CartCreateOrConnectWithoutCashierInput[]
-    upsert?: CartUpsertWithWhereUniqueWithoutCashierInput | CartUpsertWithWhereUniqueWithoutCashierInput[]
-    createMany?: CartCreateManyCashierInputEnvelope
+  export type CartUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CartCreateWithoutUserInput, CartUncheckedCreateWithoutUserInput> | CartCreateWithoutUserInput[] | CartUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CartCreateOrConnectWithoutUserInput | CartCreateOrConnectWithoutUserInput[]
+    upsert?: CartUpsertWithWhereUniqueWithoutUserInput | CartUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CartCreateManyUserInputEnvelope
     set?: CartWhereUniqueInput | CartWhereUniqueInput[]
     disconnect?: CartWhereUniqueInput | CartWhereUniqueInput[]
     delete?: CartWhereUniqueInput | CartWhereUniqueInput[]
     connect?: CartWhereUniqueInput | CartWhereUniqueInput[]
-    update?: CartUpdateWithWhereUniqueWithoutCashierInput | CartUpdateWithWhereUniqueWithoutCashierInput[]
-    updateMany?: CartUpdateManyWithWhereWithoutCashierInput | CartUpdateManyWithWhereWithoutCashierInput[]
+    update?: CartUpdateWithWhereUniqueWithoutUserInput | CartUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CartUpdateManyWithWhereWithoutUserInput | CartUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CartScalarWhereInput | CartScalarWhereInput[]
   }
 
-  export type OrderUpdateManyWithoutCashierNestedInput = {
-    create?: XOR<OrderCreateWithoutCashierInput, OrderUncheckedCreateWithoutCashierInput> | OrderCreateWithoutCashierInput[] | OrderUncheckedCreateWithoutCashierInput[]
-    connectOrCreate?: OrderCreateOrConnectWithoutCashierInput | OrderCreateOrConnectWithoutCashierInput[]
-    upsert?: OrderUpsertWithWhereUniqueWithoutCashierInput | OrderUpsertWithWhereUniqueWithoutCashierInput[]
-    createMany?: OrderCreateManyCashierInputEnvelope
+  export type OrderUpdateManyWithoutUserNestedInput = {
+    create?: XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput> | OrderCreateWithoutUserInput[] | OrderUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutUserInput | OrderCreateOrConnectWithoutUserInput[]
+    upsert?: OrderUpsertWithWhereUniqueWithoutUserInput | OrderUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: OrderCreateManyUserInputEnvelope
     set?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
     disconnect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
     delete?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
     connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
-    update?: OrderUpdateWithWhereUniqueWithoutCashierInput | OrderUpdateWithWhereUniqueWithoutCashierInput[]
-    updateMany?: OrderUpdateManyWithWhereWithoutCashierInput | OrderUpdateManyWithWhereWithoutCashierInput[]
+    update?: OrderUpdateWithWhereUniqueWithoutUserInput | OrderUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: OrderUpdateManyWithWhereWithoutUserInput | OrderUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
   }
 
@@ -11774,31 +11850,31 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type CartUncheckedUpdateManyWithoutCashierNestedInput = {
-    create?: XOR<CartCreateWithoutCashierInput, CartUncheckedCreateWithoutCashierInput> | CartCreateWithoutCashierInput[] | CartUncheckedCreateWithoutCashierInput[]
-    connectOrCreate?: CartCreateOrConnectWithoutCashierInput | CartCreateOrConnectWithoutCashierInput[]
-    upsert?: CartUpsertWithWhereUniqueWithoutCashierInput | CartUpsertWithWhereUniqueWithoutCashierInput[]
-    createMany?: CartCreateManyCashierInputEnvelope
+  export type CartUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CartCreateWithoutUserInput, CartUncheckedCreateWithoutUserInput> | CartCreateWithoutUserInput[] | CartUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CartCreateOrConnectWithoutUserInput | CartCreateOrConnectWithoutUserInput[]
+    upsert?: CartUpsertWithWhereUniqueWithoutUserInput | CartUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CartCreateManyUserInputEnvelope
     set?: CartWhereUniqueInput | CartWhereUniqueInput[]
     disconnect?: CartWhereUniqueInput | CartWhereUniqueInput[]
     delete?: CartWhereUniqueInput | CartWhereUniqueInput[]
     connect?: CartWhereUniqueInput | CartWhereUniqueInput[]
-    update?: CartUpdateWithWhereUniqueWithoutCashierInput | CartUpdateWithWhereUniqueWithoutCashierInput[]
-    updateMany?: CartUpdateManyWithWhereWithoutCashierInput | CartUpdateManyWithWhereWithoutCashierInput[]
+    update?: CartUpdateWithWhereUniqueWithoutUserInput | CartUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CartUpdateManyWithWhereWithoutUserInput | CartUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CartScalarWhereInput | CartScalarWhereInput[]
   }
 
-  export type OrderUncheckedUpdateManyWithoutCashierNestedInput = {
-    create?: XOR<OrderCreateWithoutCashierInput, OrderUncheckedCreateWithoutCashierInput> | OrderCreateWithoutCashierInput[] | OrderUncheckedCreateWithoutCashierInput[]
-    connectOrCreate?: OrderCreateOrConnectWithoutCashierInput | OrderCreateOrConnectWithoutCashierInput[]
-    upsert?: OrderUpsertWithWhereUniqueWithoutCashierInput | OrderUpsertWithWhereUniqueWithoutCashierInput[]
-    createMany?: OrderCreateManyCashierInputEnvelope
+  export type OrderUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput> | OrderCreateWithoutUserInput[] | OrderUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutUserInput | OrderCreateOrConnectWithoutUserInput[]
+    upsert?: OrderUpsertWithWhereUniqueWithoutUserInput | OrderUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: OrderCreateManyUserInputEnvelope
     set?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
     disconnect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
     delete?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
     connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
-    update?: OrderUpdateWithWhereUniqueWithoutCashierInput | OrderUpdateWithWhereUniqueWithoutCashierInput[]
-    updateMany?: OrderUpdateManyWithWhereWithoutCashierInput | OrderUpdateManyWithWhereWithoutCashierInput[]
+    update?: OrderUpdateWithWhereUniqueWithoutUserInput | OrderUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: OrderUpdateManyWithWhereWithoutUserInput | OrderUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
   }
 
@@ -12241,6 +12317,13 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type NestedEnumUserRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -12322,6 +12405,16 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserRoleWithAggregatesFilter<$PrismaModel> | $Enums.UserRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserRoleFilter<$PrismaModel>
+    _max?: NestedEnumUserRoleFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -12451,7 +12544,7 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type CartCreateWithoutCashierInput = {
+  export type CartCreateWithoutUserInput = {
     subtotal?: Decimal | DecimalJsLike | number | string
     tax?: Decimal | DecimalJsLike | number | string
     total?: Decimal | DecimalJsLike | number | string
@@ -12462,7 +12555,7 @@ export namespace Prisma {
     orders?: OrderCreateNestedManyWithoutSourceCartInput
   }
 
-  export type CartUncheckedCreateWithoutCashierInput = {
+  export type CartUncheckedCreateWithoutUserInput = {
     id?: number
     subtotal?: Decimal | DecimalJsLike | number | string
     tax?: Decimal | DecimalJsLike | number | string
@@ -12474,17 +12567,17 @@ export namespace Prisma {
     orders?: OrderUncheckedCreateNestedManyWithoutSourceCartInput
   }
 
-  export type CartCreateOrConnectWithoutCashierInput = {
+  export type CartCreateOrConnectWithoutUserInput = {
     where: CartWhereUniqueInput
-    create: XOR<CartCreateWithoutCashierInput, CartUncheckedCreateWithoutCashierInput>
+    create: XOR<CartCreateWithoutUserInput, CartUncheckedCreateWithoutUserInput>
   }
 
-  export type CartCreateManyCashierInputEnvelope = {
-    data: CartCreateManyCashierInput | CartCreateManyCashierInput[]
+  export type CartCreateManyUserInputEnvelope = {
+    data: CartCreateManyUserInput | CartCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
-  export type OrderCreateWithoutCashierInput = {
+  export type OrderCreateWithoutUserInput = {
     subtotal?: Decimal | DecimalJsLike | number | string
     tax?: Decimal | DecimalJsLike | number | string
     total?: Decimal | DecimalJsLike | number | string
@@ -12497,7 +12590,7 @@ export namespace Prisma {
     items?: OrderItemCreateNestedManyWithoutOrderInput
   }
 
-  export type OrderUncheckedCreateWithoutCashierInput = {
+  export type OrderUncheckedCreateWithoutUserInput = {
     id?: number
     sourceCartId?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string
@@ -12511,30 +12604,30 @@ export namespace Prisma {
     items?: OrderItemUncheckedCreateNestedManyWithoutOrderInput
   }
 
-  export type OrderCreateOrConnectWithoutCashierInput = {
+  export type OrderCreateOrConnectWithoutUserInput = {
     where: OrderWhereUniqueInput
-    create: XOR<OrderCreateWithoutCashierInput, OrderUncheckedCreateWithoutCashierInput>
+    create: XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput>
   }
 
-  export type OrderCreateManyCashierInputEnvelope = {
-    data: OrderCreateManyCashierInput | OrderCreateManyCashierInput[]
+  export type OrderCreateManyUserInputEnvelope = {
+    data: OrderCreateManyUserInput | OrderCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
-  export type CartUpsertWithWhereUniqueWithoutCashierInput = {
+  export type CartUpsertWithWhereUniqueWithoutUserInput = {
     where: CartWhereUniqueInput
-    update: XOR<CartUpdateWithoutCashierInput, CartUncheckedUpdateWithoutCashierInput>
-    create: XOR<CartCreateWithoutCashierInput, CartUncheckedCreateWithoutCashierInput>
+    update: XOR<CartUpdateWithoutUserInput, CartUncheckedUpdateWithoutUserInput>
+    create: XOR<CartCreateWithoutUserInput, CartUncheckedCreateWithoutUserInput>
   }
 
-  export type CartUpdateWithWhereUniqueWithoutCashierInput = {
+  export type CartUpdateWithWhereUniqueWithoutUserInput = {
     where: CartWhereUniqueInput
-    data: XOR<CartUpdateWithoutCashierInput, CartUncheckedUpdateWithoutCashierInput>
+    data: XOR<CartUpdateWithoutUserInput, CartUncheckedUpdateWithoutUserInput>
   }
 
-  export type CartUpdateManyWithWhereWithoutCashierInput = {
+  export type CartUpdateManyWithWhereWithoutUserInput = {
     where: CartScalarWhereInput
-    data: XOR<CartUpdateManyMutationInput, CartUncheckedUpdateManyWithoutCashierInput>
+    data: XOR<CartUpdateManyMutationInput, CartUncheckedUpdateManyWithoutUserInput>
   }
 
   export type CartScalarWhereInput = {
@@ -12542,7 +12635,7 @@ export namespace Prisma {
     OR?: CartScalarWhereInput[]
     NOT?: CartScalarWhereInput | CartScalarWhereInput[]
     id?: IntFilter<"Cart"> | number
-    cashierId?: IntNullableFilter<"Cart"> | number | null
+    userId?: IntNullableFilter<"Cart"> | number | null
     subtotal?: DecimalFilter<"Cart"> | Decimal | DecimalJsLike | number | string
     tax?: DecimalFilter<"Cart"> | Decimal | DecimalJsLike | number | string
     total?: DecimalFilter<"Cart"> | Decimal | DecimalJsLike | number | string
@@ -12551,20 +12644,20 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Cart"> | Date | string
   }
 
-  export type OrderUpsertWithWhereUniqueWithoutCashierInput = {
+  export type OrderUpsertWithWhereUniqueWithoutUserInput = {
     where: OrderWhereUniqueInput
-    update: XOR<OrderUpdateWithoutCashierInput, OrderUncheckedUpdateWithoutCashierInput>
-    create: XOR<OrderCreateWithoutCashierInput, OrderUncheckedCreateWithoutCashierInput>
+    update: XOR<OrderUpdateWithoutUserInput, OrderUncheckedUpdateWithoutUserInput>
+    create: XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput>
   }
 
-  export type OrderUpdateWithWhereUniqueWithoutCashierInput = {
+  export type OrderUpdateWithWhereUniqueWithoutUserInput = {
     where: OrderWhereUniqueInput
-    data: XOR<OrderUpdateWithoutCashierInput, OrderUncheckedUpdateWithoutCashierInput>
+    data: XOR<OrderUpdateWithoutUserInput, OrderUncheckedUpdateWithoutUserInput>
   }
 
-  export type OrderUpdateManyWithWhereWithoutCashierInput = {
+  export type OrderUpdateManyWithWhereWithoutUserInput = {
     where: OrderScalarWhereInput
-    data: XOR<OrderUpdateManyMutationInput, OrderUncheckedUpdateManyWithoutCashierInput>
+    data: XOR<OrderUpdateManyMutationInput, OrderUncheckedUpdateManyWithoutUserInput>
   }
 
   export type OrderScalarWhereInput = {
@@ -12573,7 +12666,7 @@ export namespace Prisma {
     NOT?: OrderScalarWhereInput | OrderScalarWhereInput[]
     id?: IntFilter<"Order"> | number
     sourceCartId?: IntNullableFilter<"Order"> | number | null
-    cashierId?: IntNullableFilter<"Order"> | number | null
+    userId?: IntNullableFilter<"Order"> | number | null
     subtotal?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
     tax?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
     total?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
@@ -12798,9 +12891,10 @@ export namespace Prisma {
     name: string
     password: string
     photoProfile?: string | null
+    role?: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
-    orders?: OrderCreateNestedManyWithoutCashierInput
+    orders?: OrderCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCartsInput = {
@@ -12809,9 +12903,10 @@ export namespace Prisma {
     name: string
     password: string
     photoProfile?: string | null
+    role?: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
-    orders?: OrderUncheckedCreateNestedManyWithoutCashierInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCartsInput = {
@@ -12855,13 +12950,13 @@ export namespace Prisma {
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    cashier?: UserCreateNestedOneWithoutOrdersInput
+    user?: UserCreateNestedOneWithoutOrdersInput
     items?: OrderItemCreateNestedManyWithoutOrderInput
   }
 
   export type OrderUncheckedCreateWithoutSourceCartInput = {
     id?: number
-    cashierId?: number | null
+    userId?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string
     tax?: Decimal | DecimalJsLike | number | string
     total?: Decimal | DecimalJsLike | number | string
@@ -12899,9 +12994,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     photoProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    orders?: OrderUpdateManyWithoutCashierNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCartsInput = {
@@ -12910,9 +13006,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     photoProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    orders?: OrderUncheckedUpdateManyWithoutCashierNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CartItemUpsertWithWhereUniqueWithoutCartInput = {
@@ -12954,13 +13051,13 @@ export namespace Prisma {
     status?: $Enums.CartStatus
     createdAt?: Date | string
     updatedAt?: Date | string
-    cashier?: UserCreateNestedOneWithoutCartsInput
+    user?: UserCreateNestedOneWithoutCartsInput
     orders?: OrderCreateNestedManyWithoutSourceCartInput
   }
 
   export type CartUncheckedCreateWithoutItemsInput = {
     id?: number
-    cashierId?: number | null
+    userId?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string
     tax?: Decimal | DecimalJsLike | number | string
     total?: Decimal | DecimalJsLike | number | string
@@ -13021,13 +13118,13 @@ export namespace Prisma {
     status?: EnumCartStatusFieldUpdateOperationsInput | $Enums.CartStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    cashier?: UserUpdateOneWithoutCartsNestedInput
+    user?: UserUpdateOneWithoutCartsNestedInput
     orders?: OrderUpdateManyWithoutSourceCartNestedInput
   }
 
   export type CartUncheckedUpdateWithoutItemsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    cashierId?: NullableIntFieldUpdateOperationsInput | number | null
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     tax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -13078,13 +13175,13 @@ export namespace Prisma {
     status?: $Enums.CartStatus
     createdAt?: Date | string
     updatedAt?: Date | string
-    cashier?: UserCreateNestedOneWithoutCartsInput
+    user?: UserCreateNestedOneWithoutCartsInput
     items?: CartItemCreateNestedManyWithoutCartInput
   }
 
   export type CartUncheckedCreateWithoutOrdersInput = {
     id?: number
-    cashierId?: number | null
+    userId?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string
     tax?: Decimal | DecimalJsLike | number | string
     total?: Decimal | DecimalJsLike | number | string
@@ -13104,9 +13201,10 @@ export namespace Prisma {
     name: string
     password: string
     photoProfile?: string | null
+    role?: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
-    carts?: CartCreateNestedManyWithoutCashierInput
+    carts?: CartCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOrdersInput = {
@@ -13115,9 +13213,10 @@ export namespace Prisma {
     name: string
     password: string
     photoProfile?: string | null
+    role?: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
-    carts?: CartUncheckedCreateNestedManyWithoutCashierInput
+    carts?: CartUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOrdersInput = {
@@ -13170,13 +13269,13 @@ export namespace Prisma {
     status?: EnumCartStatusFieldUpdateOperationsInput | $Enums.CartStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    cashier?: UserUpdateOneWithoutCartsNestedInput
+    user?: UserUpdateOneWithoutCartsNestedInput
     items?: CartItemUpdateManyWithoutCartNestedInput
   }
 
   export type CartUncheckedUpdateWithoutOrdersInput = {
     id?: IntFieldUpdateOperationsInput | number
-    cashierId?: NullableIntFieldUpdateOperationsInput | number | null
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     tax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -13202,9 +13301,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     photoProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    carts?: CartUpdateManyWithoutCashierNestedInput
+    carts?: CartUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrdersInput = {
@@ -13213,9 +13313,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     photoProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    carts?: CartUncheckedUpdateManyWithoutCashierNestedInput
+    carts?: CartUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type OrderItemUpsertWithWhereUniqueWithoutOrderInput = {
@@ -13244,13 +13345,13 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     sourceCart?: CartCreateNestedOneWithoutOrdersInput
-    cashier?: UserCreateNestedOneWithoutOrdersInput
+    user?: UserCreateNestedOneWithoutOrdersInput
   }
 
   export type OrderUncheckedCreateWithoutItemsInput = {
     id?: number
     sourceCartId?: number | null
-    cashierId?: number | null
+    userId?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string
     tax?: Decimal | DecimalJsLike | number | string
     total?: Decimal | DecimalJsLike | number | string
@@ -13315,13 +13416,13 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sourceCart?: CartUpdateOneWithoutOrdersNestedInput
-    cashier?: UserUpdateOneWithoutOrdersNestedInput
+    user?: UserUpdateOneWithoutOrdersNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutItemsInput = {
     id?: IntFieldUpdateOperationsInput | number
     sourceCartId?: NullableIntFieldUpdateOperationsInput | number | null
-    cashierId?: NullableIntFieldUpdateOperationsInput | number | null
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     tax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -13366,7 +13467,7 @@ export namespace Prisma {
     cartItems?: CartItemUncheckedUpdateManyWithoutProductNestedInput
   }
 
-  export type CartCreateManyCashierInput = {
+  export type CartCreateManyUserInput = {
     id?: number
     subtotal?: Decimal | DecimalJsLike | number | string
     tax?: Decimal | DecimalJsLike | number | string
@@ -13376,7 +13477,7 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type OrderCreateManyCashierInput = {
+  export type OrderCreateManyUserInput = {
     id?: number
     sourceCartId?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string
@@ -13389,7 +13490,7 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type CartUpdateWithoutCashierInput = {
+  export type CartUpdateWithoutUserInput = {
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     tax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -13400,7 +13501,7 @@ export namespace Prisma {
     orders?: OrderUpdateManyWithoutSourceCartNestedInput
   }
 
-  export type CartUncheckedUpdateWithoutCashierInput = {
+  export type CartUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     tax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -13412,7 +13513,7 @@ export namespace Prisma {
     orders?: OrderUncheckedUpdateManyWithoutSourceCartNestedInput
   }
 
-  export type CartUncheckedUpdateManyWithoutCashierInput = {
+  export type CartUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     tax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -13422,7 +13523,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type OrderUpdateWithoutCashierInput = {
+  export type OrderUpdateWithoutUserInput = {
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     tax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -13435,7 +13536,7 @@ export namespace Prisma {
     items?: OrderItemUpdateManyWithoutOrderNestedInput
   }
 
-  export type OrderUncheckedUpdateWithoutCashierInput = {
+  export type OrderUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     sourceCartId?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -13449,7 +13550,7 @@ export namespace Prisma {
     items?: OrderItemUncheckedUpdateManyWithoutOrderNestedInput
   }
 
-  export type OrderUncheckedUpdateManyWithoutCashierInput = {
+  export type OrderUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     sourceCartId?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -13586,7 +13687,7 @@ export namespace Prisma {
 
   export type OrderCreateManySourceCartInput = {
     id?: number
-    cashierId?: number | null
+    userId?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string
     tax?: Decimal | DecimalJsLike | number | string
     total?: Decimal | DecimalJsLike | number | string
@@ -13632,13 +13733,13 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    cashier?: UserUpdateOneWithoutOrdersNestedInput
+    user?: UserUpdateOneWithoutOrdersNestedInput
     items?: OrderItemUpdateManyWithoutOrderNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutSourceCartInput = {
     id?: IntFieldUpdateOperationsInput | number
-    cashierId?: NullableIntFieldUpdateOperationsInput | number | null
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     tax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -13652,7 +13753,7 @@ export namespace Prisma {
 
   export type OrderUncheckedUpdateManyWithoutSourceCartInput = {
     id?: IntFieldUpdateOperationsInput | number
-    cashierId?: NullableIntFieldUpdateOperationsInput | number | null
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     tax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string

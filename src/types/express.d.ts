@@ -1,10 +1,8 @@
 import { Request } from "express";
+import { JwtPayload } from "../utils/jwt";
 
 declare module "express-serve-static-core" {
   interface Request {
-    user?: {
-      id: number;
-      [key: string]: any;
-    };
+    user?: JwtPayload;
   }
 }

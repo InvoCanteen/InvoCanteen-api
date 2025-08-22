@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { verifyToken } from "../utils/jwt";
+import { verifyToken, JwtPayload } from "../utils/jwt";
 
 export interface AuthRequest extends Request {
-  user?: any;
+  user?: JwtPayload;
 }
 
 export function authMiddleware(
@@ -10,27 +10,15 @@ export function authMiddleware(
   res: Response,
   next: NextFunction
 ) {
-  const authHeader = req.headers.authorization;
+  const token = req.cookies.token;
 
-  if (!authHeader) {
+  if (!token) {
     return res.status(401).json({ error: "No token provided" });
   }
-
-  const parts = authHeader.split(" ");
-  if (parts.length !== 2 || parts[0] !== "Bearer") {
-    return res
-      .status(401)
-      .json({ error: "Invalid authorization header format" });
-  }
-
-  const token = parts[1];
-  if (!token) {
-    return res.status(401).json({ error: "Token missing" });
-  }
-
   try {
     const decoded = verifyToken(token);
     req.user = decoded;
+
     next();
   } catch (err) {
     return res.status(401).json({ error: "Invalid token" });

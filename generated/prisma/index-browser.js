@@ -126,6 +126,7 @@ exports.Prisma.UserScalarFieldEnum = {
   name: 'name',
   password: 'password',
   photoProfile: 'photoProfile',
+  role: 'role',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -148,7 +149,7 @@ exports.Prisma.ProductScalarFieldEnum = {
 
 exports.Prisma.CartScalarFieldEnum = {
   id: 'id',
-  cashierId: 'cashierId',
+  userId: 'userId',
   subtotal: 'subtotal',
   tax: 'tax',
   total: 'total',
@@ -170,7 +171,7 @@ exports.Prisma.CartItemScalarFieldEnum = {
 exports.Prisma.OrderScalarFieldEnum = {
   id: 'id',
   sourceCartId: 'sourceCartId',
-  cashierId: 'cashierId',
+  userId: 'userId',
   subtotal: 'subtotal',
   tax: 'tax',
   total: 'total',
@@ -205,6 +206,11 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.UserRole = exports.$Enums.UserRole = {
+  ADMIN: 'ADMIN',
+  CASHIER: 'CASHIER'
+};
+
 exports.CartStatus = exports.$Enums.CartStatus = {
   ACTIVE: 'ACTIVE',
   ABANDONED: 'ABANDONED',

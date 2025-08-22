@@ -16,7 +16,14 @@ export class CashierController {
       }
 
       const cashier = await CashierUsecase.register(value);
-      return res.status(201).json({ message: "Register success", cashier });
+      return res.status(200).json({
+        code: 200,
+        message: "Register success",
+        status: "success",
+        data: {
+          cashier,
+        },
+      });
     } catch (err: any) {
       return res.status(400).json({ error: err.message });
     }
@@ -32,7 +39,16 @@ export class CashierController {
       }
 
       const result = await CashierUsecase.login(value);
-      return res.status(200).json({ message: "Login success", ...result });
+      res.cookie("token", result.token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: 24 * 60 * 60 * 1000,
+      });
+      return res.json({
+        message: "Login success",
+        data: { ...result },
+      });
     } catch (err: any) {
       return res.status(400).json({ error: err.message });
     }

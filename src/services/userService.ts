@@ -6,20 +6,23 @@ export class CashierService {
     email: string;
     name?: string;
     password: string;
-    photoProfile?: string;
+    photoProfile?: string | null;
   }) {
     const hashedPassword = await bcrypt.hash(data.password, 10);
+
     return prisma.user.create({
       data: {
         email: data.email,
-        name: data.name || "user",
+        name: data.name || "",
         password: hashedPassword,
-        photoProfile: data.photoProfile || "",
+        photoProfile: data.photoProfile || null,
       },
     });
   }
 
   static async findByEmail(email: string) {
-    return prisma.user.findUnique({ where: { email } });
+    return prisma.user.findUnique({
+      where: { email },
+    });
   }
 }
