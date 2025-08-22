@@ -48,4 +48,21 @@ export class CashierController {
       return res.status(400).json({ error: err.message });
     }
   }
+
+  static async logout(req: Request, res: Response) {
+    try {
+      res.clearCookie('token', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+      });
+
+      res.json({
+        message: 'Logout successful'
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Logout failed' });
+    }
+  }
 }
