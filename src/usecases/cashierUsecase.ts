@@ -24,7 +24,8 @@ export class CashierUsecase {
     const valid = await bcrypt.compare(data.password, cashier.password);
     if (!valid) throw new Error("Invalid email or password");
 
-    const token = generateToken({ id: cashier.id, email: cashier.email });
+    const token = generateToken({ id: cashier.id, email: cashier.email, role: cashier.role });
+
     return { cashier, token };
   }
 }
