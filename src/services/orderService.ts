@@ -1,4 +1,4 @@
-import { prisma } from "../connection/prisma";
+import { prisma } from "../prisma/client";
 import { OrderEntity } from "../entities/order";
 import { OrderItemEntity } from "../entities/orderitem";
 
