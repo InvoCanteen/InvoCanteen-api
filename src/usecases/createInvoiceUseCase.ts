@@ -37,9 +37,5 @@ export class CreateInvoiceUseCase {
       price: Number(item.price),
       subtotal: Number(item.subtotal),
     }));
-
-    const newOrder = await OrderService.createOrder(order, orderItems);
-    await CartService.clearCart(cartId);
-    return newOrder;
   }
 }

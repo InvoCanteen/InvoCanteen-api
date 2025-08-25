@@ -1,47 +1,28 @@
 import { CartService } from "../services/cartService";
-import { CartEntity, CartItemEntity } from "../entities/cartEntity";
-import { prisma } from "../prisma/client";
+import { CartItemService } from "../services/cartItemService";
 
 export class CartUsecase {
-  static async createCart(userId: number) {
-    return CartService.createCart({ userId });
+  static async createCart(userId?: number | null) {
+    return CartService.createCart({ userId: userId ?? 0 });
   }
 
-  static async addCartItem(
-    cartId: number,
-    productId: number,
-    quantity: number,
-    price: number
-  ) {
-    const subtotal = quantity * Number(price);
+  static async getAllCarts() {
+    return CartService.getAllCarts();
+  }
 
-    const cartItem: CartItemEntity = {
-      cartId,
-      productId,
-      quantity,
-      price,
-      subtotal,
-    };
+  static async getCart(id: number) {
+    return CartService.getCartById(id);
+  }
 
-    // simpan cart item
-    const item = await CartService.addCartItem(cartItem);
+  static async deleteCart(id: number) {
+    return CartService.deleteCart(id);
+  }
 
-    // update subtotal cart
-    const cart = await CartService.getCartById(cartId);
-    if (!cart) throw new Error("Cart not found");
-
-    const newSubtotal = cart.items.reduce(
-      (acc, i) => acc + Number(i.subtotal),
-      0
-    );
-    const tax = newSubtotal * 0.1;
-    const total = newSubtotal + tax;
-
-    await prisma.cart.update({
-      where: { id: cartId },
-      data: { subtotal: newSubtotal, tax, total },
-    });
-
-    return item;
+  static async recomputeTotals(cartId: number) {
+    const items = await CartItemService.getItemsByCart(cartId);
+    const subtotal = items.reduce((acc, i) => acc + Number(i.subtotal), 0);
+    const tax = subtotal * 0.1; // contoh tax 10%
+    const total = subtotal + tax;
+    return CartService.updateCart(cartId, { subtotal, tax, total });
   }
 }

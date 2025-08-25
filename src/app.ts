@@ -2,6 +2,7 @@ import auth_router from "./routes/userRoutes";
 import product_router from "../src/routes/productRoutes";
 import invoice from "./routes/invoiceRoutes";
 import cartRoutes from "./routes/cartRoutes";
+import cartItemRoutes from "./routes/cartItemRoutes";
 import "dotenv/config";
 
 import express from "express";
@@ -22,7 +23,14 @@ const app = express();
 const port = 3000;
 app.use(express.json());
 app.use(cookieParser());
-app.use("/api", auth_router, product_router, invoice, cartRoutes);
+app.use(
+  "/api",
+  auth_router,
+  product_router,
+  invoice,
+  cartRoutes,
+  cartItemRoutes
+);
 app.use(cors(corsOptions));
 app.use(errorHandler);
 

@@ -1,48 +1,38 @@
-// services/cartService.ts
 import { prisma } from "../prisma/client";
-import { CartEntity, CartItemEntity } from "../entities/cartEntity";
-import { CartStatus } from "../../generated/prisma";
+import { CartEntity } from "../entities/cartEntity";
+
 export class CartService {
   static async createCart(data: CartEntity) {
     return prisma.cart.create({
       data: {
-        userId: data.userId,
-        subtotal: 0,
-        tax: 0,
-        total: 0,
-        status: CartStatus.ACTIVE, // pakai enum, lebih aman
+        userId: data.userId ?? undefined,
+        subtotal: data.subtotal ?? 0,
+        tax: data.tax ?? 0,
+        total: data.total ?? 0,
+        status: data.status ?? "ACTIVE",
       },
     });
   }
 
-  static async addCartItem(data: CartItemEntity) {
-    return prisma.cartItem.create({
-      data: {
-        cartId: data.cartId,
-        productId: data.productId,
-        quantity: data.quantity,
-        price: data.price,
-        subtotal: data.subtotal,
-      },
+  static async getAllCarts() {
+    return prisma.cart.findMany({
+      include: { items: { include: { product: true } } },
+      orderBy: { createdAt: "desc" },
     });
   }
 
-  static async getCartById(cartId: number) {
+  static async getCartById(id: number) {
     return prisma.cart.findUnique({
-      where: { id: cartId },
-      include: {
-        items: {
-          include: {
-            product: true, // ✅ include product biar langsung dapat detail
-          },
-        },
-      },
+      where: { id },
+      include: { items: { include: { product: true } } },
     });
   }
 
-  static async clearCart(cartId: number) {
-    return prisma.cartItem.deleteMany({
-      where: { cartId },
-    });
+  static async updateCart(id: number, data: Partial<CartEntity>) {
+    return prisma.cart.update({ where: { id }, data });
+  }
+
+  static async deleteCart(id: number) {
+    return prisma.cart.delete({ where: { id } });
   }
 }
