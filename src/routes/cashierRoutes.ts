@@ -1,14 +1,15 @@
 import { Router } from "express";
 import { CashierController } from "../controllers/cashierController";
 import { authMiddleware } from "../middlewares/authMiddleware";
+import { uploads } from "../utils/multer";
 
 const router = Router();
 
 router.post("/register", CashierController.register);
 router.post("/login", CashierController.login);
-
-router.get("/profile", authMiddleware, (req, res) => {
-  return res.json({ message: "You are authorized", user: (req as any).user });
-});
+router.delete("/logout", authMiddleware, CashierController.logout);
+router.get("/profile", authMiddleware, CashierController.getProfile);
+router.put("/profile/update", authMiddleware, uploads.single('photoProfile'), CashierController.updateProfile);
+router.patch("/password/update", authMiddleware, CashierController.updatePasswod);
 
 export default router;
