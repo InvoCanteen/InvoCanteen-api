@@ -214,7 +214,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "D:\\ADIL\\BOOTCAM Dumways\\invocanteen-api\\InvoCanteen-api\\generated\\prisma",
+      "value": "/Users/macbook/Documents/BOOTCAMP/stage2/projects/project kelompok/invocanteen-api/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -223,16 +223,16 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "darwin-arm64",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "D:\\ADIL\\BOOTCAM Dumways\\invocanteen-api\\InvoCanteen-api\\prisma\\schema.prisma",
+    "sourceFilePath": "/Users/macbook/Documents/BOOTCAMP/stage2/projects/project kelompok/invocanteen-api/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
+    "rootEnvPath": "../../.env",
     "schemaEnvPath": "../../.env"
   },
   "relativePath": "../../prisma",

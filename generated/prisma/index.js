@@ -215,7 +215,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "D:\\ADIL\\BOOTCAM Dumways\\invocanteen-api\\InvoCanteen-api\\generated\\prisma",
+      "value": "/Users/macbook/Documents/BOOTCAMP/stage2/projects/project kelompok/invocanteen-api/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -224,16 +224,16 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "darwin-arm64",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "D:\\ADIL\\BOOTCAM Dumways\\invocanteen-api\\InvoCanteen-api\\prisma\\schema.prisma",
+    "sourceFilePath": "/Users/macbook/Documents/BOOTCAMP/stage2/projects/project kelompok/invocanteen-api/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
+    "rootEnvPath": "../../.env",
     "schemaEnvPath": "../../.env"
   },
   "relativePath": "../../prisma",
@@ -292,8 +292,8 @@ exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
-path.join(__dirname, "query_engine-windows.dll.node");
-path.join(process.cwd(), "generated/prisma/query_engine-windows.dll.node")
+path.join(__dirname, "libquery_engine-darwin-arm64.dylib.node");
+path.join(process.cwd(), "generated/prisma/libquery_engine-darwin-arm64.dylib.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "generated/prisma/schema.prisma")
