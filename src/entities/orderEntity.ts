@@ -1,6 +1,5 @@
-export interface OrderEntity {
+export interface Order {
   id?: number;
-  sourceCartId: number;
   userId: number;
   subtotal: number;
   tax: number;
