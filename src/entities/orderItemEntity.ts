@@ -1,7 +1,7 @@
-export interface OrderItemEntity {
+export interface OrderItem {
   id?: number;
-  orderId?: number;
-  productId: number | null;
+  orderId: number;
+  productId: number;
   quantity: number;
   price: number;
   subtotal: number;

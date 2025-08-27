@@ -1,8 +1,10 @@
 import auth_router from "./routes/userRoutes";
 import product_router from "../src/routes/productRoutes";
-import invoice from "./routes/invoiceRoutes";
+import invoice from "./routes/orderRoutes";
 import cartRoutes from "./routes/cartRoutes";
 import cartItemRoutes from "./routes/cartItemRoutes";
+import orderRoutes from "./routes/orderRoutes";
+import orderItemRoutes from "./routes/orderItemRoutes";
 import "dotenv/config";
 
 import express from "express";
@@ -29,7 +31,9 @@ app.use(
   product_router,
   invoice,
   cartRoutes,
-  cartItemRoutes
+  cartItemRoutes,
+  orderRoutes,
+  orderItemRoutes
 );
 app.use(cors(corsOptions));
 app.use(errorHandler);
