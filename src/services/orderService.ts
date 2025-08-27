@@ -10,16 +10,15 @@ export class OrderService {
     });
     if (!userExists) throw new Error(`User with id ${data.userId} not found`);
 
-    // Create order
     return prisma.orders.create({
       data: {
-        user: { connect: { id: data.userId } }, // nested connect ke user
+        user: { connect: { id: data.userId } },
         subtotal: data.subtotal,
         tax: data.tax,
         total: data.total,
         payStatus: data.payStatus || "UNPAID",
-        paidAt: data.paidAt ?? null, // ganti undefined jadi null
-        notes: data.notes ?? null, // ganti undefined jadi null
+        paidAt: data.paidAt ?? null,
+        notes: data.notes ?? null,
       },
     });
   }
