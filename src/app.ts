@@ -22,7 +22,8 @@ const corsOptions = {
   credentials: true,
 };
 const app = express();
-const port = 3000;
+const port = 4500;
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 app.use(
@@ -35,7 +36,6 @@ app.use(
   orderRoutes,
   orderItemRoutes
 );
-app.use(cors(corsOptions));
 app.use(errorHandler);
 
 app.listen(port, () => {
