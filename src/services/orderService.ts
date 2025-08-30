@@ -1,6 +1,6 @@
-import { prisma } from "../prisma/client";
+import { prisma } from "@/prisma/client";
 import { Prisma } from "../../generated/prisma";
-import { Order } from "../entities/orderEntity";
+import { Order } from "@/entities/orderEntity";
 export class OrderService {
   // Create order
   static async create(data: Order) {

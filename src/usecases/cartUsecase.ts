@@ -1,5 +1,5 @@
-import { CartService } from "../services/cartService";
-import { CartItemService } from "../services/cartItemService";
+import { CartService } from "@/services/cartService";
+import { CartItemService } from "@/services/cartItemService";
 
 export class CartUsecase {
   static async createCart(userId?: number | null) {

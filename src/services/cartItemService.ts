@@ -1,5 +1,5 @@
-import { prisma } from "../prisma/client";
-import { CartItemEntity } from "../entities/cartEntity";
+import { prisma } from "@/prisma/client";
+import { CartItemEntity } from "@/entities/cartEntity";
 
 export class CartItemService {
   static async addItem(data: CartItemEntity) {

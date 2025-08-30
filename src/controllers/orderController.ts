@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { OrderUsecase } from "../usecases/orderUsecase";
+import { OrderUsecase } from "@/usecases/orderUsecase";
 
 export class OrderController {
   static async create(req: Request, res: Response) {

@@ -1,6 +1,6 @@
-import { CartItemService } from "../services/cartItemService";
-import { CartUsecase } from "./cartUsecase";
-import { CartItemEntity } from "../entities/cartEntity";
+import { CartItemService } from "@/services/cartItemService";
+import { CartUsecase } from "@/usecases/cartUsecase";
+import { CartItemEntity } from "@/entities/cartEntity";
 
 export class CartItemUsecase {
   static async addItem(data: CartItemEntity) {

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { prisma } from "../prisma/client";
-import { addProductSchema } from "../validation/productValidation";
-import { SupabaseUploadService } from "../utils/supabase-upload";
+import { prisma } from "@/prisma/client";
+import { addProductSchema } from "@/validation/productValidation";
+import { SupabaseUploadService } from "@/utils/supabase-upload";
 
 export async function addProduct(req: Request, res: Response) {
   const userId = (req as any).user.id;

@@ -2,10 +2,10 @@ import { Request, Response } from "express";
 import {
   registerCashierSchema,
   loginCashierSchema,
-} from "../validation/userValidation";
-import { CashierUsecase } from "../usecases/userUsecase";
-import { prisma } from "../prisma/client";
-import { SupabaseUploadService } from "../utils/supabase-upload";
+} from "@/validation/userValidation";
+import { CashierUsecase } from "@/usecases/userUsecase";
+import { prisma } from "@/prisma/client";
+import { SupabaseUploadService } from "@/utils/supabase-upload";
 import bcrypt from "bcrypt";
 
 export class CashierController {

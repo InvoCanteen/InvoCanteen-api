@@ -1,4 +1,8 @@
-import { CartStatus } from "../../generated/prisma";
+export enum CartStatus {
+  ACTIVE = 'ACTIVE',
+  ABANDONED = 'ABANDONED',
+  CHECKED_OUT = 'CHECKED_OUT'
+};
 
 export interface CartEntity {
   id?: number;
