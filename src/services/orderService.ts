@@ -1,10 +1,8 @@
 import { prisma } from "@/prisma/client";
-import { Prisma } from "../../generated/prisma";
 import { Order } from "@/entities/orderEntity";
+import { Prisma } from "@prisma/client";
 export class OrderService {
-  // Create order
   static async create(data: Order) {
-    // Pastikan user ada
     const userExists = await prisma.user.findUnique({
       where: { id: data.userId },
     });
