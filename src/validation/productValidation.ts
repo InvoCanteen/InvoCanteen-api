@@ -19,9 +19,13 @@ export const updateProductSchema = Joi.object({
 export const getAllProductsQuerySchema = Joi.object({
   sortBy: Joi.string().valid("name", "price", "createdAt", "updatedAt").optional(),
   order: Joi.string().valid("asc", "desc").optional(),
-  limit: Joi.number().integer().min(1).max(100).optional(),
-  offset: Joi.number().integer().min(0).optional(),
-  minPrice: Joi.number().min(0).optional(),
-  maxPrice: Joi.number().min(0).optional(),
+  limit: Joi.number().integer().min(1).max(100).empty('').optional(),
+  offset: Joi.number().integer().min(0).empty('').optional(),
+  minPrice: Joi.number().min(0).empty('').optional(),
+  maxPrice: Joi.number().min(0).empty('').when('minPrice', {
+    is: Joi.exist(),
+    then: Joi.number().min(Joi.ref('minPrice')),
+    otherwise: Joi.number().min(0)
+  }).empty('').optional(),
 });
 

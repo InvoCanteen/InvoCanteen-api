@@ -32,7 +32,7 @@ export async function addProductService(payload: AddProductPayload) {
 
 export async function getAllProductsService(filters: ProductFilters, options: ProductQueryOptions) {
     const { minPrice, maxPrice } = filters;
-    const { sortBy = 'createdAt', order = 'desc', limit = 10, offset = 0 } = options;
+    const { sortBy = 'createdAt', order = 'desc', limit = 10, offset } = options;
 
     const whereClause: Prisma.ProductWhereInput = {};
     if (minPrice !== undefined && maxPrice !== undefined) {
@@ -47,7 +47,7 @@ export async function getAllProductsService(filters: ProductFilters, options: Pr
         where: whereClause,
         orderBy: { [sortBy]: order },
         take: limit,
-        skip: offset,
+        skip: offset ?? 0,
     });
 
     const total = await prisma.product.count({ where: whereClause });

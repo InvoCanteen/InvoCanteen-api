@@ -29,11 +29,12 @@ export async function addProduct(req: Request, res: Response) {
 
     const { name, price, categoryId, description } = req.body;
     const file = req.file;
+    const parseCategoryId = parseInt(categoryId as string, 10);
 
     const product = await addProductService({
       name,
       price,
-      categoryId,
+      categoryId: parseCategoryId,
       description,
       file,
     });
@@ -63,7 +64,7 @@ export async function getAllProducts(req: Request, res: Response) {
     const sortBy = (value.sortBy || "createdAt") as string;
     const order = (value.order || "desc") as 'asc' | 'desc';
     const limit = value.limit || 10;
-    const offset = value.offset || 0;
+    const offset = value.offset;
     const { minPrice, maxPrice } = value;
 
     const options: ProductQueryOptions = { sortBy, order, limit, offset };

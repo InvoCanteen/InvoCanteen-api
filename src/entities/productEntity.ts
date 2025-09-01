@@ -23,5 +23,5 @@ export interface ProductQueryOptions {
     sortBy: string;
     order: 'asc' | 'desc';
     limit: number;
-    offset: number;
+    offset?: number;
 }
