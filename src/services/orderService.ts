@@ -11,6 +11,7 @@ export class OrderService {
     return prisma.orders.create({
       data: {
         user: { connect: { id: data.userId } },
+        customerName: data.customerName ?? null,
         subtotal: data.subtotal,
         tax: data.tax,
         total: data.total,
@@ -23,6 +24,20 @@ export class OrderService {
 
   static async findAll() {
     return prisma.orders.findMany({
+      include: { items: true },
+    });
+  }
+
+  static async findAllUnpaid() {
+    return prisma.orders.findMany({
+      where: { payStatus: "UNPAID" },
+      include: { items: true },
+    });
+  }
+
+  static async findAllPaid() {
+    return prisma.orders.findMany({
+      where: { payStatus: "PAID" },
       include: { items: true },
     });
   }

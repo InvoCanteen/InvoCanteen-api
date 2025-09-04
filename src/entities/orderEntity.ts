@@ -5,10 +5,11 @@ export enum payStatus {
 export interface Order {
   id?: number;
   userId: number;
+  customerName?: string | null;
   subtotal: number;
   tax: number;
   total: number;
-  payStatus?: payStatus;
+  payStatus: "UNPAID" | "PAID";
   paidAt?: Date;
   notes?: string;
   createdAt?: Date;

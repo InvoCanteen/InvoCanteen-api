@@ -6,6 +6,7 @@ export class CartService {
     return prisma.cart.create({
       data: {
         userId: data.userId ?? undefined,
+        customerName: data.customerName ?? null,
         subtotal: data.subtotal ?? 0,
         tax: data.tax ?? 0,
         total: data.total ?? 0,
@@ -35,4 +36,5 @@ export class CartService {
   static async deleteCart(id: number) {
     return prisma.cart.delete({ where: { id } });
   }
+  
 }

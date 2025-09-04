@@ -1,7 +1,8 @@
 import express from "express";
+import invoice from "./routes/orderRoutes";
+import cartRoutes from "./routes/cartRoutes";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-
 import userRoutes from "@/routes/userRoutes";
 import productRoutes from "@/routes/productRoutes";
 import cartRoutes from "@/routes/cartRoutes";
@@ -16,15 +17,20 @@ if (!process.env.FRONTEND_URL) {
   process.exit(1);
 }
 
+const app = express();
+const port = 4500;
 const corsOptions = {
-  origin: [process.env.FRONTEND_URL],
+  origin: process.env.FRONTEND_URL,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   credentials: true,
 };
+
 const app = express();
 const port = 4500;
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
+
 app.use(
   "/api",
   userRoutes,
@@ -35,7 +41,6 @@ app.use(
   orderItemRoutes
 );
 app.use(errorHandler);
-
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Server running on port ${port}`);
 });

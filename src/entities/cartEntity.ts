@@ -7,6 +7,7 @@ export enum CartStatus {
 export interface CartEntity {
   id?: number;
   userId: number;
+  customerName?: string;
   subtotal?: number;
   tax?: number;
   total?: number;

@@ -13,6 +13,17 @@ export class CartController {
     res.json(carts);
   }
 
+  static async updateCart(req: Request, res: Response) {
+    try {
+      const id = Number(req.params.id);
+      const data = req.body; // { customerName: "Budi", status: "CHECKED_OUT", ... }
+      const updated = await CartUsecase.updateCart(id, data);
+      res.json(updated);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+
   static async getCart(req: Request, res: Response) {
     const cart = await CartUsecase.getCart(Number(req.params.id));
     res.json(cart);
