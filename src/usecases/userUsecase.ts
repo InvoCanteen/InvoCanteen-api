@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
-import { CashierService } from "../services/userService";
-import { generateToken } from "../utils/jwt";
-import { User } from "../entities/userEntity";
+import { CashierService } from "@/services/userService";
+import { generateToken } from "@/utils/jwt";
+import { User } from "@/entities/userEntity";
 
 export class CashierUsecase {
   static async register(data: {
@@ -10,7 +10,6 @@ export class CashierUsecase {
     password: string;
     photoProfile?: string | null;
   }) {
-    // ⬅️ return type User
     const existing = await CashierService.findByEmail(data.email);
     if (existing) throw new Error("Email already registered");
 
@@ -22,7 +21,7 @@ export class CashierUsecase {
     email: string;
     password: string;
   }): Promise<{ cashier: User; token: string }> {
-    const cashier = (await CashierService.findByEmail(data.email)) as User; // ⬅️ kasih hint User
+    const cashier = (await CashierService.findByEmail(data.email)) as User;
     if (!cashier) throw new Error("Invalid email or password");
 
     const valid = await bcrypt.compare(data.password, cashier.password);
@@ -31,7 +30,7 @@ export class CashierUsecase {
     const token = generateToken({
       id: cashier.id,
       email: cashier.email,
-      role: cashier.role, //
+      role: cashier.role,
     });
 
     return { cashier, token };

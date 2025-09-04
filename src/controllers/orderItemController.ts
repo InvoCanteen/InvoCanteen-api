@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { OrderItemUsecase } from "../usecases/orderItemUsecase";
+import { OrderItemUsecase } from "@/usecases/orderItemUsecase";
 
 export class OrderItemController {
   static async create(req: Request, res: Response) {

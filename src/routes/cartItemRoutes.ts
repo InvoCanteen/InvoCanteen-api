@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { CartItemController } from "../controllers/cartItemController";
-import { authMiddleware } from "../middlewares/authMiddleware";
+import { CartItemController } from "@/controllers/cartItemController";
+import { authMiddleware } from "@/middlewares/authMiddleware";
 
 const router = Router();
 router.post("/cart-item", authMiddleware, CartItemController.addItem);

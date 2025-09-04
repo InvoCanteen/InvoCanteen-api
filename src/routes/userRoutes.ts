@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { CashierController } from "../controllers/userController";
-import { authMiddleware } from "../middlewares/authMiddleware";
-import { uploads } from "../utils/multer";
+import { CashierController } from "@/controllers/userController";
+import { authMiddleware } from "@/middlewares/authMiddleware";
+import { uploads } from "@/utils/multer";
 
 const router = Router();
 

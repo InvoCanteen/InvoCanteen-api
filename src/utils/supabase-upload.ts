@@ -1,4 +1,4 @@
-import { supabaseAdmin } from './supabase-client';
+import { supabaseAdmin } from '@/utils/supabase-client';
 import { v4 as uuidv4 } from 'uuid';
 
 export interface UploadResult {

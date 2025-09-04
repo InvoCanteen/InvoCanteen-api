@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { addProduct, deleteProduct, detailProduct, getAllProducts, updateProduct } from "../controllers/productController";
-import { adminAuthMiddleware, authMiddleware } from "../middlewares/authMiddleware";
+import { addProduct, deleteProduct, detailProduct, getAllProducts, updateProduct } from "@/controllers/productController";
+import { adminAuthMiddleware, authMiddleware } from "@/middlewares/authMiddleware";
 import { uploads } from "../utils/multer";
 
 

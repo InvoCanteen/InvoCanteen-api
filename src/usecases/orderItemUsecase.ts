@@ -1,4 +1,4 @@
-import { OrderItemService } from "../services/orderItemService";
+import { OrderItemService } from "@/services/orderItemService";
 
 export class OrderItemUsecase {
   static createOrderItem = OrderItemService.create;

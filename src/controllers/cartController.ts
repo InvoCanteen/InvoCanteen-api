@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CartUsecase } from "../usecases/cartUsecase";
+import { CartUsecase } from "@/usecases/cartUsecase";
 
 export class CartController {
   static async createCart(req: Request, res: Response) {

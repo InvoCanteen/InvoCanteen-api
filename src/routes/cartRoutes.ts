@@ -1,7 +1,7 @@
 // routes/cartRoutes.ts
 import { Router } from "express";
-import { CartController } from "../controllers/cartController";
-import { authMiddleware } from "../middlewares/authMiddleware";
+import { CartController } from "@/controllers/cartController";
+import { authMiddleware } from "@/middlewares/authMiddleware";
 
 const router = Router();
 router.post("/cart", authMiddleware, CartController.createCart);

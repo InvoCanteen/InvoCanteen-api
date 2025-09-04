@@ -1,3 +1,7 @@
+export enum payStatus {
+  PAID = 'PAID',
+  UNPAID = 'UNPAID'
+};
 export interface Order {
   id?: number;
   userId: number;
