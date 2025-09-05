@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "prisma generate && tsc && tsc-alias && prisma migrate deploy",
-    "dev": "ts-node-dev -r tsconfig-paths/register --respawn src/app.ts"
+    "dev": "ts-node-dev -r tsconfig-paths/register --respawn src/server.ts"
   },
   "keywords": [],
   "author": "",

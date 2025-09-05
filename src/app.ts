@@ -27,6 +27,12 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
+app.get("/", (req, res) => {
+  res.status(200).send(
+    "<h1>Aplikasi Berjalan</h1><p>Selamat datang di API InvoCanteen.</p>"
+  );
+});
+
 app.use(
   "/api",
   userRoutes,
