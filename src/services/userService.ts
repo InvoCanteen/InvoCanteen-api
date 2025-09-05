@@ -1,4 +1,4 @@
-import { prisma } from "../prisma/client";
+import { prisma } from "@/prisma/client";
 import bcrypt from "bcrypt";
 
 export class CashierService {
@@ -9,10 +9,11 @@ export class CashierService {
     photoProfile?: string | null;
   }) {
     const hashedPassword = await bcrypt.hash(data.password, 10);
+
     return prisma.user.create({
       data: {
         email: data.email,
-        name: data.name || '',
+        name: data.name || "",
         password: hashedPassword,
         photoProfile: data.photoProfile || null,
       },
@@ -20,6 +21,8 @@ export class CashierService {
   }
 
   static async findByEmail(email: string) {
-    return prisma.user.findUnique({ where: { email } });
+    return prisma.user.findUnique({
+      where: { email },
+    });
   }
 }

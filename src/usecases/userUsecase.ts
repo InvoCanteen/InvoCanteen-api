@@ -1,7 +1,7 @@
-// src/usecases/cashierUsecase.ts
 import bcrypt from "bcrypt";
-import { CashierService } from "../services/cashierService";
-import { generateToken } from "../utils/jwt";
+import { CashierService } from "@/services/userService";
+import { generateToken } from "@/utils/jwt";
+import { User } from "@/entities/userEntity";
 
 export class CashierUsecase {
   static async register(data: {
@@ -17,14 +17,21 @@ export class CashierUsecase {
     return cashier;
   }
 
-  static async login(data: { email: string; password: string }) {
-    const cashier = await CashierService.findByEmail(data.email);
+  static async login(data: {
+    email: string;
+    password: string;
+  }): Promise<{ cashier: User; token: string }> {
+    const cashier = (await CashierService.findByEmail(data.email)) as User;
     if (!cashier) throw new Error("Invalid email or password");
 
     const valid = await bcrypt.compare(data.password, cashier.password);
     if (!valid) throw new Error("Invalid email or password");
 
-    const token = generateToken({ id: cashier.id, email: cashier.email, role: cashier.role });
+    const token = generateToken({
+      id: cashier.id,
+      email: cashier.email,
+      role: cashier.role,
+    });
 
     return { cashier, token };
   }

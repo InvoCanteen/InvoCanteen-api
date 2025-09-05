@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node-dev --respawn src/app.ts"
+    "dev": "ts-node-dev -r tsconfig-paths/register --respawn src/app.ts"
   },
   "keywords": [],
   "author": "",
@@ -12,20 +12,30 @@
   "description": "",
   "dependencies": {
     "@prisma/client": "^6.14.0",
+    "@supabase/supabase-js": "^2.56.0",
     "@types/bcrypt": "^6.0.0",
     "@types/cookie-parser": "^1.4.9",
+    "@types/cors": "^2.8.19",
+    "@types/dotenv": "^6.1.1",
     "@types/express": "^5.0.3",
     "@types/joi": "^17.2.2",
     "@types/jsonwebtoken": "^9.0.10",
+    "@types/multer": "^2.0.0",
     "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "joi": "^18.0.1",
     "jsonwebtoken": "^9.0.2",
-    "prisma": "^6.14.0"
+    "multer": "^2.0.2",
+    "prisma": "^6.14.0",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
+    "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.9.2"
   }
 }

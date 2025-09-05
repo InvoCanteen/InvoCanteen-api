@@ -4,7 +4,16 @@
     "target": "es2020",
     "outDir": "dist",
     "rootDir": "src",
-    "typeRoots": ["./src/types", "./node_modules/@types"],
+    "typeRoots": [
+      "./src/types",
+      "./node_modules/@types"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "types": [],
