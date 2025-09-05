@@ -1,27 +1,33 @@
-export interface AddProductPayload {
+export interface AddProductType {
     name: string;
     price: number;
-    categoryId: number | null;
-    description?: string | undefined;
-    file?: Express.Multer.File | undefined;
+    categoryId: number;
+    description?: string;
+    file?: Express.Multer.File;
 }
 
-export interface UpdateProductPayload {
-    name?: string | undefined;
-    price?: number | undefined;
-    categoryId?: number | null | undefined;
-    description?: string | undefined;
-    file?: Express.Multer.File | undefined;
+export interface UpdateProductType {
+    id: number;
+    name?: string;
+    price?: number;
+    categoryId?: number;
+    description?: string;
+    file?: Express.Multer.File;
 }
 
-export interface ProductFilters {
-    minPrice?: number | undefined;
-    maxPrice?: number | undefined;
-}
-
-export interface ProductQueryOptions {
-    sortBy: string;
-    order: 'asc' | 'desc';
-    limit: number;
+export interface GetAllProductsType {
+    sortBy?: string;
+    order?: 'asc' | 'desc';
+    limit?: number;
     offset?: number;
+    minPrice?: number;
+    maxPrice?: number;
+}
+
+export interface GetProductByIdType {
+    id: number;
+}
+
+export interface DeleteProductType {
+    id: number;
 }

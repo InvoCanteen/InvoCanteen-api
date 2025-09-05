@@ -7,7 +7,7 @@ import {
   getProductByIdService,
   updateProductService
 } from "@/services/productService";
-import { ProductQueryOptions } from "@/entities/productEntity";
+import { GetAllProductsType } from "@/entities/productEntity";
 
 export async function addProduct(req: Request, res: Response) {
   const userId = (req as any).user.id;
@@ -31,13 +31,14 @@ export async function addProduct(req: Request, res: Response) {
     const file = req.file;
     const parseCategoryId = parseInt(categoryId as string, 10);
 
-    const product = await addProductService({
+    const payload: any = {
       name,
       price,
       categoryId: parseCategoryId,
       description,
-      file,
-    });
+    };
+    if (file) payload.file = file;
+    const product = await addProductService(payload);
 
     return res.status(201).json({
       message: "Product added successfully",
@@ -67,7 +68,7 @@ export async function getAllProducts(req: Request, res: Response) {
     const offset = value.offset;
     const { minPrice, maxPrice } = value;
 
-    const options: ProductQueryOptions = { sortBy, order, limit, offset };
+    const options: GetAllProductsType = { sortBy, order, limit, offset };
     const { products, total } = await getAllProductsService(
       { minPrice, maxPrice },
       options
@@ -105,7 +106,7 @@ export async function updateProduct(req: Request, res: Response) {
       return res.status(400).json({ message: error.message });
     }
 
-    const existingProduct = await getProductByIdService(productId);
+    const existingProduct = await getProductByIdService({ id: productId });
     if (!existingProduct) {
       return res.status(404).json({ message: "Product not found" });
     }
@@ -113,13 +114,15 @@ export async function updateProduct(req: Request, res: Response) {
     const { name, price, categoryId, description } = value;
     const file = req.file;
 
-    const updatedProduct = await updateProductService(productId, {
+    const payload: any = {
+      id: productId,
       name,
       price: price ? parseFloat(price as string) : undefined,
       categoryId,
       description,
-      file,
-    });
+    };
+    if (file) payload.file = file;
+    const updatedProduct = await updateProductService(productId, payload);
 
     return res.status(200).json({
       message: "Product updated successfully",
@@ -147,7 +150,7 @@ export async function detailProduct(req: Request, res: Response) {
   }
 
   try {
-    const product = await getProductByIdService(productId);
+    const product = await getProductByIdService({ id: productId });
 
     if (!product) {
       return res.status(404).json({
@@ -180,14 +183,14 @@ export async function deleteProduct(req: Request, res: Response) {
   }
 
   try {
-    const product = await getProductByIdService(productId);
+    const product = await getProductByIdService({ id: productId });
     if (!product) {
       return res.status(404).json({
         message: "Product not found",
       });
     }
 
-    const deletedProduct = await deleteProductService(productId);
+    const deletedProduct = await deleteProductService({ id: productId });
 
     return res.status(200).json({
       message: "Product deleted successfully",

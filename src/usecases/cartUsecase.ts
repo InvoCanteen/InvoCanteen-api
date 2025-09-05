@@ -4,8 +4,8 @@ import { CartItemService } from "../services/cartItemService";
 import { CartEntity } from "../entities/cartEntity";
 
 export class CartUsecase {
-  static async createCart(userId?: number | null) {
-    return CartService.createCart({ userId: userId ?? 0 });
+  static async createCart(userId: number) {
+    return CartService.createCart({ userId });
   }
 
   static async getAllCarts() {
@@ -26,8 +26,8 @@ export class CartUsecase {
 
   static async recomputeTotals(cartId: number) {
     const items = await CartItemService.getItemsByCart(cartId);
-    const subtotal = items.reduce((acc, i) => acc + Number(i.subtotal), 0);
-    const tax = subtotal * 0.1; // contoh tax 10%
+    const subtotal = items.reduce((acc: number, i: any) => acc + Number(i.subtotal), 0);
+    const tax = subtotal * 0.1;
     const total = subtotal + tax;
     return CartService.updateCart(cartId, { subtotal, tax, total });
   }

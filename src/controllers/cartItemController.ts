@@ -20,9 +20,13 @@ export class CartItemController {
   }
 
   static async deleteItem(req: Request, res: Response) {
-    const { id, cartId } = req.body;
-    const item = await CartItemUsecase.deleteItem(Number(id), cartId);
-    res.json(item);
+    const { id } = req.params;
+    const { cartId } = req.body;
+    if (!cartId) {
+      return res.status(400).json({ message: "cartId is required in the body" });
+    }
+    await CartItemUsecase.deleteItem(Number(id), Number(cartId));
+    res.json({ success: true, message: "Item deleted successfully" });
   }
 
   static async getItems(req: Request, res: Response) {

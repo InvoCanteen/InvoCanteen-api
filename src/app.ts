@@ -1,8 +1,8 @@
 import express from "express";
-import invoice from "./routes/orderRoutes";
-import cartRoutes from "./routes/cartRoutes";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import "dotenv/config";
+
 import userRoutes from "@/routes/userRoutes";
 import productRoutes from "@/routes/productRoutes";
 import cartRoutes from "@/routes/cartRoutes";
@@ -10,7 +10,6 @@ import cartItemRoutes from "@/routes/cartItemRoutes";
 import orderRoutes from "@/routes/orderRoutes";
 import orderItemRoutes from "@/routes/orderItemRoutes";
 import errorHandler from "@/middlewares/errorHandler";
-import "dotenv/config";
 
 if (!process.env.FRONTEND_URL) {
   console.error("Missing required environment variable: FRONTEND_URL");
@@ -24,9 +23,6 @@ const corsOptions = {
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   credentials: true,
 };
-
-const app = express();
-const port = 4500;
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());

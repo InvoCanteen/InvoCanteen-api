@@ -1,9 +1,8 @@
-import { AddProductPayload, ProductFilters, ProductQueryOptions, UpdateProductPayload } from "@/entities/productEntity";
+import { AddProductType, UpdateProductType, GetAllProductsType, GetProductByIdType, DeleteProductType } from "@/entities/productEntity";
 import { prisma } from "@/prisma/client";
 import { SupabaseUploadService } from "@/utils/supabase-upload";
-import { Prisma } from "@prisma/client";
 
-export async function addProductService(payload: AddProductPayload) {
+export async function addProductService(payload: AddProductType) {
     const { name, price, categoryId, description, file } = payload;
     let imageUrl: string | null = null;
 
@@ -30,11 +29,11 @@ export async function addProductService(payload: AddProductPayload) {
     });
 }
 
-export async function getAllProductsService(filters: ProductFilters, options: ProductQueryOptions) {
+export async function getAllProductsService(filters: { minPrice?: number; maxPrice?: number }, options: GetAllProductsType) {
     const { minPrice, maxPrice } = filters;
     const { sortBy = 'createdAt', order = 'desc', limit = 10, offset } = options;
 
-    const whereClause: Prisma.ProductWhereInput = {};
+    const whereClause: any = {};
     if (minPrice !== undefined && maxPrice !== undefined) {
         whereClause.price = { gte: minPrice, lte: maxPrice };
     } else if (minPrice !== undefined) {
@@ -55,13 +54,14 @@ export async function getAllProductsService(filters: ProductFilters, options: Pr
     return { products, total };
 }
 
-export async function getProductByIdService(id: number) {
+export async function getProductByIdService(payload: GetProductByIdType) {
+    const { id } = payload;
     return prisma.product.findUnique({ where: { id } });
 }
 
-export async function updateProductService(id: number, payload: UpdateProductPayload) {
+export async function updateProductService(id: number, payload: UpdateProductType) {
     const { name, price, categoryId, description, file } = payload;
-    const dataToUpdate: Prisma.ProductUncheckedUpdateInput = {};
+    const dataToUpdate: any = {};
 
     if (name !== undefined) dataToUpdate.name = name;
     if (price !== undefined) dataToUpdate.price = price;
@@ -86,6 +86,7 @@ export async function updateProductService(id: number, payload: UpdateProductPay
     });
 }
 
-export async function deleteProductService(id: number) {
+export async function deleteProductService(payload: DeleteProductType) {
+    const { id } = payload;
     return prisma.product.delete({ where: { id } });
 }

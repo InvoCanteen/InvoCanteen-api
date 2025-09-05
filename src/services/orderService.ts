@@ -1,26 +1,5 @@
 import { prisma } from "@/prisma/client";
-import { Order } from "@/entities/orderEntity";
-import { Prisma } from "@prisma/client";
 export class OrderService {
-  static async create(data: Order) {
-    const userExists = await prisma.user.findUnique({
-      where: { id: data.userId },
-    });
-    if (!userExists) throw new Error(`User with id ${data.userId} not found`);
-
-    return prisma.orders.create({
-      data: {
-        user: { connect: { id: data.userId } },
-        customerName: data.customerName ?? null,
-        subtotal: data.subtotal,
-        tax: data.tax,
-        total: data.total,
-        payStatus: data.payStatus || "UNPAID",
-        paidAt: data.paidAt ?? null,
-        notes: data.notes ?? null,
-      },
-    });
-  }
 
   static async findAll() {
     return prisma.orders.findMany({
@@ -49,7 +28,7 @@ export class OrderService {
     });
   }
 
-  static async update(id: number, data: Prisma.OrdersUpdateInput) {
+  static async update(id: number, data: any) {
     return prisma.orders.update({
       where: { id },
       data,

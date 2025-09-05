@@ -3,13 +3,29 @@ import { CartItemEntity } from "@/entities/cartEntity";
 
 export class CartItemService {
   static async addItem(data: CartItemEntity) {
+    const product = await prisma.product.findUnique({
+      where: {
+        id: data.productId,
+      },
+      select: {
+        price: true,
+      },
+    });
+
+    if (!product) {
+      throw new Error(`Product with ID ${data.productId} not found.`);
+    }
+
+    const quantity = data.quantity ?? 1;
+    const subtotal = product.price.toNumber() * quantity;
+
     return prisma.cartItem.create({
       data: {
         cartId: data.cartId,
         productId: data.productId ?? undefined,
-        quantity: data.quantity ?? 1,
-        price: data.price,
-        subtotal: data.subtotal,
+        quantity: quantity,
+        price: product.price,
+        subtotal: subtotal,
       },
     });
   }
