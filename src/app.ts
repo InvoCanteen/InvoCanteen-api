@@ -17,7 +17,7 @@ if (!process.env.FRONTEND_URL) {
 }
 
 const app = express();
-const port = 4500;
+export const port = 4500;
 const corsOptions = {
   origin: process.env.FRONTEND_URL,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -37,6 +37,5 @@ app.use(
   orderItemRoutes
 );
 app.use(errorHandler);
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+
+export default app;
