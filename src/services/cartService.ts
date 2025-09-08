@@ -34,6 +34,10 @@ export class CartService {
   }
 
   static async deleteCart(id: number) {
+    await prisma.cartItem.deleteMany({
+      where: { cartId: id },
+    });
+
     return prisma.cart.delete({ where: { id } });
   }
 
