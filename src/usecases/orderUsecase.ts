@@ -29,7 +29,7 @@ export class OrderUsecase {
           subtotal: cart.subtotal,
           tax: cart.tax,
           total: cart.total,
-          payStatus: "UNPAID",
+          payStatus: "PAID",
         },
       });
 
