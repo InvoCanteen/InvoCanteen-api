@@ -24,6 +24,6 @@ export class OrderItemController {
 
   static async delete(req: Request, res: Response) {
     await OrderItemUsecase.deleteOrderItem(Number(req.params.id));
-    res.json({ message: "OrderItem deleted" });
+    res.json({ success: true, message: "OrderItem deleted" });
   }
 }

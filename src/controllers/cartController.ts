@@ -33,7 +33,25 @@ export class CartController {
   }
 
   static async deleteCart(req: Request, res: Response) {
-    const cart = await CartUsecase.deleteCart(Number(req.params.id));
-    res.json(cart);
+    try {
+      const deleted = await CartUsecase.deleteCart(Number(req.params.id));
+
+      if (deleted) {
+        res.status(200).json({
+          success: true,
+          message: 'Cart deleted successfully.'
+        });
+      } else {
+        res.status(404).json({
+          status: 'fail',
+          message: 'Cart not found.'
+        });
+      }
+    } catch (error) {
+      res.status(500).json({
+        status: 'error',
+        message: 'An error occurred while deleting the cart.'
+      });
+    }
   }
 }
