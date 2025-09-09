@@ -22,10 +22,23 @@ export class OrderService {
   }
 
   static async findById(id: number) {
-    return prisma.orders.findUnique({
+    const order = await prisma.orders.findUnique({
       where: { id },
-      include: { items: true },
+      include: {
+        items: {
+          include: {
+            product: {
+              select: {
+                name: true
+              }
+            }
+          }
+        }
+      },
     });
+
+
+    return order;
   }
 
   static async update(id: number, data: any) {
