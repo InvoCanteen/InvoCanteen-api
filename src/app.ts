@@ -2,6 +2,7 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import "dotenv/config";
+import "@/utils/cloudinary";
 
 import userRoutes from "@/routes/userRoutes";
 import productRoutes from "@/routes/productRoutes";
@@ -28,9 +29,11 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.get("/", (req, res) => {
-  res.status(200).send(
-    "<h1>Aplikasi Berjalan</h1><p>Selamat datang di API InvoCanteen.</p>"
-  );
+  res
+    .status(200)
+    .send(
+      "<h1>Aplikasi Berjalan</h1><p>Selamat datang di API InvoCanteen.</p>"
+    );
 });
 
 app.use(

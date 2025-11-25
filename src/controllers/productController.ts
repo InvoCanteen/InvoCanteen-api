@@ -1,11 +1,15 @@
 import { Request, Response } from "express";
-import { addProductSchema, updateProductSchema, getAllProductsQuerySchema } from "@/validation/productValidation";
+import {
+  addProductSchema,
+  updateProductSchema,
+  getAllProductsQuerySchema,
+} from "@/validation/productValidation";
 import {
   addProductService,
   deleteProductService,
   getAllProductsService,
   getProductByIdService,
-  updateProductService
+  updateProductService,
 } from "@/services/productService";
 import { GetAllProductsType } from "@/entities/productEntity";
 
@@ -24,7 +28,9 @@ export async function addProduct(req: Request, res: Response) {
   try {
     const { error } = addProductSchema.validate(req.body);
     if (error) {
-      return res.status(400).json({ message: error.message ?? "Validation error" });
+      return res
+        .status(400)
+        .json({ message: error.message ?? "Validation error" });
     }
 
     const { name, price, categoryId, description } = req.body;
@@ -47,7 +53,9 @@ export async function addProduct(req: Request, res: Response) {
   } catch (error) {
     console.error("Error in addProduct controller:", error);
     if (error instanceof Error && error.message.includes("upload failed")) {
-      return res.status(400).json({ message: "File upload failed", cause: (error as any).cause });
+      return res
+        .status(400)
+        .json({ message: "File upload failed", cause: (error as any).cause });
     }
     return res.status(500).json({
       message: "An internal server error occurred.",
@@ -63,7 +71,7 @@ export async function getAllProducts(req: Request, res: Response) {
     }
 
     const sortBy = (value.sortBy || "createdAt") as string;
-    const order = (value.order || "desc") as 'asc' | 'desc';
+    const order = (value.order || "desc") as "asc" | "desc";
     const limit = value.limit || 10;
     const offset = value.offset;
     const { minPrice, maxPrice } = value;
@@ -131,7 +139,9 @@ export async function updateProduct(req: Request, res: Response) {
   } catch (error) {
     console.error("Error in updateProduct controller:", error);
     if (error instanceof Error && error.message.includes("upload failed")) {
-      return res.status(400).json({ message: "File upload failed", cause: (error as any).cause });
+      return res
+        .status(400)
+        .json({ message: "File upload failed", cause: (error as any).cause });
     }
     return res.status(500).json({
       message: "An internal server error occurred.",

@@ -5,8 +5,11 @@ import {
 } from "@/validation/userValidation";
 import { CashierUsecase } from "@/usecases/userUsecase";
 import { prisma } from "@/prisma/client";
-import { SupabaseUploadService } from "@/utils/supabase-upload";
 import bcrypt from "bcrypt";
+import {
+  deleteFromCloudinary,
+  uploadToCloudinary,
+} from "@/utils/cloudinaryUploads";
 
 export class CashierController {
   static async register(req: Request, res: Response) {
@@ -122,10 +125,7 @@ export class CashierController {
 
       const oldPhotoProfileUrl = currentUser.photoProfile;
 
-      const uploadService = new SupabaseUploadService();
-      const uploadResult = await uploadService.uploadFile(file);
-      const profilePictureUrl = uploadResult.url;
-
+      const profilePictureUrl = await uploadToCloudinary(file);
       const updatedUser = await prisma.user.update({
         where: { id: currentUserId },
         data: {
@@ -144,10 +144,7 @@ export class CashierController {
       });
 
       if (oldPhotoProfileUrl) {
-        const fileName = oldPhotoProfileUrl.split("/").pop();
-        if (fileName) {
-          await uploadService.deleteFile(fileName);
-        }
+        await deleteFromCloudinary(oldPhotoProfileUrl);
       }
 
       res.status(200).json({
