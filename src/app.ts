@@ -10,6 +10,7 @@ import cartItemRoutes from "@/routes/cartItemRoutes";
 import orderRoutes from "@/routes/orderRoutes";
 import orderItemRoutes from "@/routes/orderItemRoutes";
 import errorHandler from "@/middlewares/errorHandler";
+import statisticRoutes from "@/routes/statisticRoutes";
 
 if (!process.env.FRONTEND_URL) {
   console.error("Missing required environment variable: FRONTEND_URL");
@@ -28,9 +29,11 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.get("/", (req, res) => {
-  res.status(200).send(
-    "<h1>Aplikasi Berjalan</h1><p>Selamat datang di API InvoCanteen.</p>"
-  );
+  res
+    .status(200)
+    .send(
+      "<h1>Aplikasi Berjalan</h1><p>Selamat datang di API InvoCanteen.</p>"
+    );
 });
 
 app.use(
@@ -40,7 +43,8 @@ app.use(
   cartRoutes,
   cartItemRoutes,
   orderRoutes,
-  orderItemRoutes
+  orderItemRoutes,
+  statisticRoutes
 );
 app.use(errorHandler);
 
